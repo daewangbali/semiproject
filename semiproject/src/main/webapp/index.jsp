@@ -30,7 +30,6 @@
     </head>
     <body>
         <!-- Responsive navbar-->
-        <c:choose>
         <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: 	#FFD700">
             <div class="container px-lg-5">
             	<img src="images/everykostatime_logo0.png" style="width: 35px; padding-right: 4px">
@@ -47,7 +46,6 @@
                 </div>
             </div>
         </nav>
-         </c:choose>
         <!-- Header-->
         <header class="py-5">
             <div class="container px-lg-5">
