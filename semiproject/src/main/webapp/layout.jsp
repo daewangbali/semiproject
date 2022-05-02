@@ -33,7 +33,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: 	#FFD700">
             <div class="container px-lg-5">
             	<img src="images/everykostatime_logo0.png" style="width: 35px; padding-right: 4px">
-                <a class="navbar-brand font-face  " href="#!" style="padding-bottom: 2px" >EVERY KOSTIME</a>
+                <a class="navbar-brand font-face  " href="HomeController.do" style="padding-bottom: 2px" >EVERY KOSTIME</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -47,7 +47,7 @@
             </div>
         </nav>
         <div class="row">
-		<div class="col-sm-8 offset-sm-2" align="right">
+		<div class="col-sm-10 offset-sm-1">
 			<%-- 각 컨트롤러에서 request 에 할당한 url을 이용해 import 한다 --%>
 			<c:import url="${requestScope.url}"/>
 		</div>
