@@ -31,7 +31,7 @@
     <body>
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: 	#FFD700">
-            <div class="container px-lg-5">
+            <div class="container px-lg-1">
             	<img src="images/everykostatime_logo0.png" style="width: 35px; padding-right: 4px">
                 <a class="navbar-brand font-face  " href="HomeController.do" style="padding-bottom: 2px" >EVERY KOSTIME</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -41,6 +41,7 @@
                         <li style="padding: 5px"><input class="id" id="id" placeholder="아이디" style="border-color:#FFD700"></li>
                         <li style="padding: 5px"><input class="id" id="password" placeholder="패스워드"style="border-color:#FFD700"></li>
                         <li class="nav-item"><a class="nav-link" href="#!" style="color: white; ">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!" style="color: white; ">Join</a></li>
                       <!--   <li class="nav-item"><a class="nav-link" href="#!" style="color: white">Join</a></li> -->
                     </ul>
                 </div>

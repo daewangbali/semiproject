@@ -12,7 +12,7 @@
                        
                         
                         <p class="fs-4"></p>
-                        <a class="btn btn-warning " style="background-color: #FFD700;border: 0px; width: 150px 100px;align-content: center; " href="#!">회원가입</a>
+                        <a class="btn btn-warning " style="background-color: #FFD700;border: 0px; width: 150px 100px;align-content: center; " href="#!">에.코.타와 함께하기</a>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <div class="col-lg-6 col-xxl-4 mb-5">
                         <div class="card  border-0 h-100">
                             <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                                <div class="feature bg-warning bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
+                                <div class=""><img src="images/2pm_logo.png" width="100" ></div>
                                 <br>
                                 <a href="ListController.do" style="font-size: 0.7cm;text-decoration: none;color: black">두시의 데이트</a>
                                 <p class="mb-0"></p>
@@ -36,7 +36,7 @@
                     <div class="col-lg-6 col-xxl-4 mb-5">
                         <div class="card border-0 h-100">
                             <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                                <div class="feature bg-warning bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-cloud-download"></i></div>
+                                <div class=""><img src="images/threeperson_logo.png" width="100"></div>
                                 <br>
                                 <a href=".do" style="font-size: 0.7cm;text-decoration: none;color: black">소통게시판</a>
                                  <p class="mb-0"></p>
@@ -46,7 +46,7 @@
                     <div class="col-lg-6 col-xxl-4 mb-5">
                         <div class="card  border-0 h-100">
                             <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                                <div class="feature bg-warning bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-card-heading"></i></div>
+                                <div class=""><img src="images/free_logo.png" width="100"></div>
                                 <br>
                                 <a href=".do" style="font-size: 0.7cm;text-decoration: none;color: black">자유게시판</a>
                                 <p class="mb-0"></p>
