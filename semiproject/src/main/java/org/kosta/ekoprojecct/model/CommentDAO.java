@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 
 public class CommentDAO {
 	private static CommentDAO instance=new CommentDAO();
+	@SuppressWarnings("unused")
 	private DataSource dataSource;
 	private CommentDAO() {
 		this.dataSource=DataSourceManager.getInstance().getDataSource();
