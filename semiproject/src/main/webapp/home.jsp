@@ -12,7 +12,7 @@
                        
                         
                         <p class="fs-4"></p>
-                        <a class="btn btn-warning " style="background-color: #FFD700;border: 0px; width: 150px 100px;align-content: center; " href="#!">회원가입</a>
+                        <a class="btn btn-warning " style="background-color: #FFD700;border: 0px; width: 150px 100px;align-content: center; " href="register-form.jsp" method="get">회원가입</a>
                     </div>
                 </div>
             </div>
