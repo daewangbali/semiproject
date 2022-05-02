@@ -14,7 +14,7 @@ ALTER TABLE SemiBoard ADD PostContent CLOB NOT NULL
 
 CREATE TABLE SemiBoard(
 	postNo NUMBER PRIMARY KEY,
-	postContent BLOB NOT NULL,
+	postContent CLOB NOT NULL,
 	postDate DATE NOT NULL,
 	postCategory VARCHAR2(100) NOT NULL,
 	postTitle VARCHAR2(100) NOT NULL,
@@ -22,6 +22,8 @@ CREATE TABLE SemiBoard(
 	hits NUMBER DEFAULT 0 NOT NULL,
 	CONSTRAINT mySemiboard_fk FOREIGN KEY(id) REFERENCES SemiMEMBER(id)
 )
+
+ALTER TABLE SemiBoard ADD hits NUMBER DEFAULT 0;
 
 --SemiBoard 시퀀스
 CREATE SEQUENCE SemiBoard_seq
@@ -53,7 +55,7 @@ CREATE TABLE SemiComment(
 	commentNo NUMBER,
 	postNo NUMBER,
 	commentDate Date NOT NULL,
-	commentContent BLOB NOT NULL,
+	commentContent CLOB NOT NULL,
 	CONSTRAINT mySemiComment_pk PRIMARY KEY(commentNo, postNo),
 	CONSTRAINT mySemiComment_fk FOREIGN KEY(postNo) REFERENCES SemiBoard(postNo)
 )
