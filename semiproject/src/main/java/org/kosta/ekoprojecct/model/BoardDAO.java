@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 
 public class BoardDAO {
 	private static BoardDAO instance=new BoardDAO();
+	@SuppressWarnings("unused")
 	private DataSource dataSource;
 	private BoardDAO() {
 		this.dataSource=DataSourceManager.getInstance().getDataSource();
