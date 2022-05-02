@@ -17,7 +17,8 @@ public class RegisterMemberController implements Controller {
 		
 		MemberDAO.getInstance().registerMember(id, name, tel, kostaNO, password);
 		
-		return "redirect:register-success.jsp";
+		request.setAttribute("url", "register-success.jsp");
+		return "layout.jsp";
 	}
 
 }

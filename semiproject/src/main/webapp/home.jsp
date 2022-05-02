@@ -12,7 +12,7 @@
                        
                         
                         <p class="fs-4"></p>
-                        <a class="btn btn-warning " style="background-color: #FFD700;border: 0px; width: 150px 100px;align-content: center; " href="register-form.jsp">에.코.타와 함께하기</a>
+                        <a class="btn btn-warning " style="background-color: #FFD700;border: 0px; width: 150px 100px;align-content: center; " href="RegisterMemberFormController.do">에.코.타와 함께하기</a>
                     </div>
             </div>
         </header>

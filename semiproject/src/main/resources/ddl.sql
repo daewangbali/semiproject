@@ -9,6 +9,9 @@ CREATE TABLE SemiMEMBER(
 	password VARCHAR2(100) NOT NULL
 )
 
+ALTER TABLE SemiBoard DROP COLUMN postContent
+ALTER TABLE SemiBoard ADD PostContent CLOB NOT NULL
+
 CREATE TABLE SemiBoard(
 	postNo NUMBER PRIMARY KEY,
 	postContent BLOB NOT NULL,
@@ -16,6 +19,7 @@ CREATE TABLE SemiBoard(
 	postCategory VARCHAR2(100) NOT NULL,
 	postTitle VARCHAR2(100) NOT NULL,
 	id VARCHAR2(100) NOT NULL,
+	hits NUMBER DEFAULT 0 NOT NULL,
 	CONSTRAINT mySemiboard_fk FOREIGN KEY(id) REFERENCES SemiMEMBER(id)
 )
 
@@ -56,3 +60,7 @@ CREATE TABLE SemiComment(
 
 --SemiComment 시퀀스
 CREATE SEQUENCE SemiComment_seq
+
+--SemiBoard number add
+ALTER TABLE SemiBoard ADD hits NUMBER DEFAULT 0;
+SELECT * FROM SemiBoard

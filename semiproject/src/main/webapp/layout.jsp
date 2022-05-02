@@ -38,10 +38,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 <!--                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li> -->
-                        <li style="padding: 5px"><input class="id" id="id" placeholder="아이디" style="border-color:#FFD700"></li>
-                        <li style="padding: 5px"><input class="id" id="password" placeholder="패스워드"style="border-color:#FFD700"></li>
-                        <li class="nav-item"><a class="nav-link" href="#!" style="color: white; ">Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!" style="color: white; ">Join</a></li>
+                        <form action="LoginController.do" method="post">
+                        <li style="padding: 5px"><input name="id" placeholder="아이디" style="border-color:#FFD700"></li>
+                        <li style="padding: 5px"><input name="password" placeholder="패스워드"style="border-color:#FFD700"></li>
+                        <li class="nav-item"><button type="submit">Login</li>
+                        </form>
+                        <li class="nav-item"><a class="nav-link" href="RegisterMemberFormController.do" style="color: white; ">Join</a></li>
                       <!--   <li class="nav-item"><a class="nav-link" href="#!" style="color: white">Join</a></li> -->
                     </ul>
                 </div>
