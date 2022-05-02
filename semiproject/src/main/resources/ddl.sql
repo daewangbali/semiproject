@@ -27,20 +27,18 @@ CREATE TABLE SemiLike(
 	CONSTRAINT mySemiLike_fk2 FOREIGN KEY(postNo) REFERENCES SemiBoard(postNo)
 )
 
---------
 CREATE TABLE SemiFile(
 	fileNo NUMBER,
 	postNo NUMBER,
 	originalName VARCHAR2(100) NOT NULL,
 	savedName VARCHAR2(100) NOT NULL,
-	path VARCHAR2(100) NOT NULL,
-	size NUMBER NOT NULL,
+	filePath VARCHAR2(100) NOT NULL,
+	fileSize NUMBER NOT NULL,
 	fileDate DATE NOT NULL,
 	CONSTRAINT mySemiFile_pk PRIMARY KEY(fileNo, postNo),
 	CONSTRAINT mySemiFile_fk FOREIGN KEY(postNo) REFERENCES SemiBoard(postNo)
 )
 
----------
 DROP TABLE SemiCOMMENT
 
 CREATE TABLE SemiComment(
