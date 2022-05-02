@@ -19,6 +19,9 @@ CREATE TABLE SemiBoard(
 	CONSTRAINT mySemiboard_fk FOREIGN KEY(id) REFERENCES SemiMEMBER(id)
 )
 
+--SemiBoard 시퀀스
+CREATE SEQUENCE SemiBoard_seq
+
 CREATE TABLE SemiLike(
 	id VARCHAR2(100),
 	postNo NUMBER,
@@ -39,7 +42,8 @@ CREATE TABLE SemiFile(
 	CONSTRAINT mySemiFile_fk FOREIGN KEY(postNo) REFERENCES SemiBoard(postNo)
 )
 
-DROP TABLE SemiCOMMENT
+--SemiFile 시퀀스
+CREATE SEQUENCE SemiFile_seq
 
 CREATE TABLE SemiComment(
 	commentNo NUMBER,
@@ -49,3 +53,6 @@ CREATE TABLE SemiComment(
 	CONSTRAINT mySemiComment_pk PRIMARY KEY(commentNo, postNo),
 	CONSTRAINT mySemiComment_fk FOREIGN KEY(postNo) REFERENCES SemiBoard(postNo)
 )
+
+--SemiComment 시퀀스
+CREATE SEQUENCE SemiComment_seq
