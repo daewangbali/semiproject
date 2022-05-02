@@ -42,6 +42,8 @@ CREATE TABLE SemiFile(
 	CONSTRAINT mySemiFile_fk FOREIGN KEY(postNo) REFERENCES SemiBoard(postNo)
 )
 
+
+
 --SemiFile 시퀀스
 CREATE SEQUENCE SemiFile_seq
 
