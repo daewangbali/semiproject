@@ -48,9 +48,9 @@
                       <!--   <li class="nav-item"><a class="nav-link" href="#!" style="color: white">Join</a></li> -->
                     </c:when>
                     <c:otherwise>
-                    	<div style="position: relative; margin-right: 40px; top: 7px;">${sessionScope.mvo.kostaNO }님 환영합니다!</div>
-                        <li class="nav-item"><a class="nav-link" style="color: white; position: relative; left: 10px;">My Page</a></li>
-                        <li class="nav-item"><a class="nav-link" href="LogoutController.do" style="color: white; position: relative; left:50px;">Logout</a></li>
+                    	<div style="position: relative; margin-right: 25px; top: 7px;">${sessionScope.mvo.kostaNO }님 환영합니다!</div>
+                        <li class="nav-item"><a class="nav-link" style="color: white; position: relative; left: 0.5px;">My Page</a></li>
+                        <li class="nav-item"><a class="nav-link" href="LogoutController.do" style="color: white; position: relative; left:5px;">Logout</a></li>
                     </c:otherwise>
                     </c:choose>
                     </ul>
