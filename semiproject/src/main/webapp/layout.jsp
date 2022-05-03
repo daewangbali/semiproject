@@ -35,20 +35,35 @@
             	<img src="images/everykostatime_logo0.png" style="width: 35px; padding-right: 4px">
                 <a class="navbar-brand font-face  " href="HomeController.do" style="padding-bottom: 2px" >EVERY KOSTIME</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-<!--                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li> -->
-                        <form action="LoginController.do" method="post">
-                        <li style="padding: 5px"><input name="id" placeholder="아이디" style="border-color:#FFD700"></li>
-                        <li style="padding: 5px"><input name="password" placeholder="패스워드"style="border-color:#FFD700"></li>
-                        <li class="nav-item"><button type="submit">Login</li>
-                        </form>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent"  >
+                      <form action="LoginController.do" method="post" id="login_form">
+                    <ul class="navbar-nav  ms-auto mb-2 mb-lg-0" >
+	                     <!-- <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li> -->                        
+                        <li style="padding: 5px"><input id="id" name="id" placeholder="아이디" style="border-color:#FFD700"></li>
+                        <li style="padding: 5px"><input id="password" name="password" placeholder="패스워드"style="border-color:#FFD700"></li>
+                        <li class="nav-item"><a class="nav-link" id="btn_login" href="#" onclick="return login_form()" style="color: white; ">Login</a></li>
                         <li class="nav-item"><a class="nav-link" href="RegisterMemberFormController.do" style="color: white; ">Join</a></li>
                       <!--   <li class="nav-item"><a class="nav-link" href="#!" style="color: white">Join</a></li> -->
                     </ul>
+                   </form>
                 </div>
             </div>
         </nav>
+         <script type="text/javascript">
+        	function login_form() {
+        		if(document.getElementById("id").value==''){
+        			alert("아이디를 입력하세요.");
+        			return false;
+        		}
+        		if(document.getElementById("password").value==''){
+        			alert("비밀번호를 입력하세요.");
+        			return false;
+        		}
+        		
+        		document.getElementById("login_form").submit();
+				
+			}
+        </script>
         <div class="row">
 		<div class="col-sm-10 offset-sm-1">
 			<%-- 각 컨트롤러에서 request 에 할당한 url을 이용해 import 한다 --%>
