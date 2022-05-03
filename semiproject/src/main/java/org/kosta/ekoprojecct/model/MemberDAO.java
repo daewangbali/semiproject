@@ -26,7 +26,7 @@ public class MemberDAO {
 			con.close();
 	}
 
-	public void closeAll(ResultSet rs, PreparedStatement pstmt, Connection con) throws Exception {
+	public void closeAll(ResultSet rs, PreparedStatement pstmt, Connection con) throws SQLException {
 		if (rs != null)
 			rs.close();
 		closeAll(pstmt, con);
@@ -56,20 +56,20 @@ public class MemberDAO {
 		}
 	}
 	
-	public MemberVO login(String id, String password) throws Exception {
+	public MemberVO login(String id, String password) throws SQLException {
 		MemberVO vo=null;
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
 			con=dataSource.getConnection();
-			String sql="SELECT name, tel, KOSTANO FROM Semimember WHERE id=? AND password=?";
+			String sql="SELECT name FROM SemiMEMBER WHERE id=? AND password=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, password);	
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				vo=new MemberVO(id,rs.getString("name"),rs.getString("tel"),rs.getString("KOSTANo"),password);
+				vo=new MemberVO(id,rs.getString("name"),null,null,password);
 			}
 		}finally {
 			closeAll(rs, pstmt, con);
@@ -77,6 +77,26 @@ public class MemberDAO {
 		
 		
 		return vo;
+	}
+
+	public boolean idcheck(String id) throws SQLException {
+		boolean flag=false;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="SELECT COUNT(*) FROM SemiMEMBER WHERE id=? ";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs=pstmt.executeQuery();
+			if(rs.next()&&(rs.getInt(1)>0))
+			flag=true;
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		
+		return flag;
 	}
 
 }
