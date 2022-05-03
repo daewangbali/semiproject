@@ -23,7 +23,7 @@ public class MemberVO implements Serializable {
 		this.kostaNO = kostaNO;
 		this.password = password;
 	}
-
+	
 	public String getId() {
 		return id;
 	}

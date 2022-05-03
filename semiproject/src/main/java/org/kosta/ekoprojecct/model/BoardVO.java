@@ -6,6 +6,7 @@ public class BoardVO {
 	private String postContent;
 	private String postDate;
 	private String postCategory;
+	private int hits;
 	private MemberVO memberVO;
 
 	public BoardVO() {
@@ -52,10 +53,26 @@ public class BoardVO {
 		this.postCategory = postCategory;
 	}
 
+	public int getHits() {
+		return hits;
+	}
+
+	public void setHits(int hits) {
+		this.hits = hits;
+	}
+
+	public MemberVO getMemberVO() {
+		return memberVO;
+	}
+
+	public void setMemberVO(MemberVO memberVO) {
+		this.memberVO = memberVO;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardVO [postNo=" + postNo + ", postTitle=" + postTitle + ", postContent=" + postContent + ", postDate="
-				+ postDate + ", postCategory=" + postCategory + ", memberVO=" + memberVO + "]";
+				+ postDate + ", postCategory=" + postCategory + ", hits=" + hits + ", memberVO=" + memberVO + "]";
 	}
 
 }

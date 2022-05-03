@@ -14,15 +14,15 @@ public class LoginController implements Controller {
 		
 		String id=request.getParameter("id");
 		String password=request.getParameter("password");
-		System.out.println(id);
+
 		MemberVO vo=MemberDAO.getInstance().login(id,password);
-		String viewName=null;
-		if(vo==null) {
-			viewName="login-fail.jsp";
-		}else {
+		System.out.println(vo);
+		String viewName="login-fail.jsp";
+		
+		if(vo!=null) {
 			HttpSession session=request.getSession();
 			session.setAttribute("mvo", vo);
-			viewName="redirect:ListController.do";
+			viewName="redirect:HomeController.do";
 		}
 		
 		return viewName;

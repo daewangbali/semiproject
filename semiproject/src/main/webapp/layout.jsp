@@ -38,12 +38,19 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent"  >
                       <form action="LoginController.do" method="post" id="login_form">
                     <ul class="navbar-nav  ms-auto mb-2 mb-lg-0" >
+                    <c:choose>
+                    <c:when test="${sessionScope.mvo==null }">
 	                     <!-- <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li> -->                        
                         <li style="padding: 5px"><input id="id" name="id" placeholder="아이디" style="border-color:#FFD700"></li>
                         <li style="padding: 5px"><input id="password" name="password" placeholder="패스워드"style="border-color:#FFD700"></li>
                         <li class="nav-item"><a class="nav-link" id="btn_login" href="#" onclick="return login_form()" style="color: white; ">Login</a></li>
                         <li class="nav-item"><a class="nav-link" href="RegisterMemberFormController.do" style="color: white; ">Join</a></li>
                       <!--   <li class="nav-item"><a class="nav-link" href="#!" style="color: white">Join</a></li> -->
+                    </c:when>
+                    <c:otherwise>
+                    	${sessionScope.mvo.kostaNO }님 환영합니다!
+                    </c:otherwise>
+                    </c:choose>
                     </ul>
                    </form>
                 </div>
