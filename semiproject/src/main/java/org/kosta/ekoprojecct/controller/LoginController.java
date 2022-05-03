@@ -22,7 +22,7 @@ public class LoginController implements Controller {
 		}else {
 			HttpSession session=request.getSession();
 			session.setAttribute("mvo", vo);
-			viewName="redirect:ListController.do";
+			viewName="redirect:HomeController.do";
 		}
 		
 		return viewName;
