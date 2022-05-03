@@ -48,7 +48,8 @@
                       <!--   <li class="nav-item"><a class="nav-link" href="#!" style="color: white">Join</a></li> -->
                     </c:when>
                     <c:otherwise>
-                    	${sessionScope.mvo.kostaNO }님 환영합니다!
+                    	<div style="position: relative; margin-right: 80px; top: 7px;">${sessionScope.mvo.kostaNO }님 환영합니다!</div>
+                        <li class="nav-item"><a class="nav-link" href="LogoutController.do" style="color: white; position: relative; left:90px;">Logout</a></li>
                     </c:otherwise>
                     </c:choose>
                     </ul>
