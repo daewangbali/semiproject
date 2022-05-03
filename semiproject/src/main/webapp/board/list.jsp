@@ -4,16 +4,16 @@
 
         <br>
 <div align="center">
-<a class="navbar-brand font-face  " href="#!" style="padding-bottom: 2px;color: black;font-size: 1cm;margin: 0 50px 0 0 " >두시의 데이트</a>
-<a class="navbar-brand font-face  " href="#!" style="padding-bottom: 2px;color: black;font-size: 1cm;margin: 0 50px 0 0 " >소통게시판</a>
-<a class="navbar-brand font-face  " href="#!" style="padding-bottom: 2px;color: black;font-size: 1cm;margin: 0 50px 0 0 " >자유게시판</a>
+<a class="navbar-brand font-face  " href="ListController.do?postCategory=두시" style="padding-bottom: 2px;color: black;font-size: 1cm;margin: 0 50px 0 0 " >두시의 데이트</a>
+<a class="navbar-brand font-face  " href="ListController.do?postCategory=소통" style="padding-bottom: 2px;color: black;font-size: 1cm;margin: 0 50px 0 0 " >소통게시판</a>
+<a class="navbar-brand font-face  " href="ListController.do?postCategory=자유" style="padding-bottom: 2px;color: black;font-size: 1cm;margin: 0 50px 0 0 " >자유게시판</a>
 </div>
 <br>	
 <br>	
 <div >
 	<table class="table table-bordered table-hover boardlist">
 	<thead>
-		<tr style="background-color:; text-align: center;">
+		<tr style="background-color:; text-align: center; ">
 			<th width="10%">글번호</th>
 			<th class="title" width="50%">제목</th>
 			<th width="15%">작성자</th>
@@ -22,25 +22,27 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${plist}" var="p">
-			<tr>
-				<td>${p.no}</td>
+
+		<c:forEach items="${list}" var="boardVO">
+			<tr style="text-align: center">
+				<td>${boardVO.postNo}</td>
 				<%--
 					로그인 상태일때만 링크를 부여 PostDetailController.do? query string 으로 pk인 게시물 no가 서버로 전달 보내기
 				 --%>
 				<c:choose>
 					<c:when test="${sessionScope.mvo==null}">
-						<td>${p.title}</td>
+						<td>${boardVO.postTitle}</td>
 					</c:when>
 					<c:otherwise>
-						<td onclick=""><a href="PostDetailController.do?no=${p.no}">${p.title}</a></td>
+						<td onclick=""><a href="PostDetailController.do?no=${boardVO.postNo}">${boardVO.postTitle}</a></td>
 					</c:otherwise>
 				</c:choose>
-				<td>${p.memberVO.name}</td>
-				<td>${p.timePosted}</td>
-				<td>${p.hits}</td>
+				<td>${boardVO.memberVO.id}</td>
+				<td>${boardVO.postDate}</td>
+				<td>${boardVO.hits}</td>
 			</tr>
 		</c:forEach>
+	
 	</tbody>
 </table>
 <%-- pagination 처리 --%>
