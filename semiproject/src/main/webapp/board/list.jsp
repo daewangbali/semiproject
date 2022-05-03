@@ -13,7 +13,7 @@
 <div >
 	<table class="table table-bordered table-hover boardlist">
 	<thead>
-		<tr style="background-color:; text-align: center;">
+		<tr style="background-color:; text-align: center; ">
 			<th width="10%">글번호</th>
 			<th class="title" width="50%">제목</th>
 			<th width="15%">작성자</th>
@@ -24,7 +24,7 @@
 	<tbody>
 
 		<c:forEach items="${list}" var="boardVO">
-			<tr>
+			<tr style="text-align: center">
 				<td>${boardVO.postNo}</td>
 				<%--
 					로그인 상태일때만 링크를 부여 PostDetailController.do? query string 으로 pk인 게시물 no가 서버로 전달 보내기
