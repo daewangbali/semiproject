@@ -34,7 +34,7 @@
 	
             <div class="container px-lg-1">
             	<img src="images/everykostatime_logo0.png" style="width: 35px; padding-right: 3px; padding-left: 3px; padding-top: 6px">
-                <a class="navbar-brand font-face  " href="HomeController.do" style="width:35px; padding-bottom: 2px; color:white; font-size: 20px" >EVERY KOSTIME</a>
+                <a class="navbar-brand font-face  " style="width:35px; padding-bottom: 2px; color:white; font-size: 20px" >EVERY KOSTIME</a>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 <form action="RegisterMemberController.do" method="post">
 	<input type="text" name="id" id="memberId" placeholder="아이디" required="required" onkeyup="checkId()"><br>
@@ -60,7 +60,7 @@
 		let memberId=document.getElementById("memberId").value;
 		let checkResult=document.getElementById("checkResult");
 		if(memberId.length<4){
-			checkResult.innerHTML="<font color=pink>아이디는 4자이상</font>";
+			checkResult.innerHTML="<font color=white>아이디는 4자이상</font>";
 		}else{
 			let xhr=new XMLHttpRequest();
 			xhr.onload=function(){
