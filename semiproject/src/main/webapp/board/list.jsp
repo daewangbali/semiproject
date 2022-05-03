@@ -22,25 +22,27 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${plist}" var="p">
+
+		<c:forEach items="${list}" var="boardVO">
 			<tr>
-				<td>${p.no}</td>
+				<td>${boardVO.postNo}</td>
 				<%--
 					로그인 상태일때만 링크를 부여 PostDetailController.do? query string 으로 pk인 게시물 no가 서버로 전달 보내기
 				 --%>
 				<c:choose>
 					<c:when test="${sessionScope.mvo==null}">
-						<td>${p.title}</td>
+						<td>${boardVO.postTitle}</td>
 					</c:when>
 					<c:otherwise>
-						<td onclick=""><a href="PostDetailController.do?no=${p.no}">${p.title}</a></td>
+						<td onclick=""><a href="PostDetailController.do?no=${boardVO.postNo}">${boardVO.postTitle}</a></td>
 					</c:otherwise>
 				</c:choose>
-				<td>${p.memberVO.name}</td>
-				<td>${p.timePosted}</td>
-				<td>${p.hits}</td>
+				<td>${boardVO.memberVO.id}</td>
+				<td>${boardVO.postDate}</td>
+				<td>${boardVO.hits}</td>
 			</tr>
 		</c:forEach>
+	
 	</tbody>
 </table>
 <%-- pagination 처리 --%>
