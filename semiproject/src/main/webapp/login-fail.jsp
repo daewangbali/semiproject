@@ -10,7 +10,7 @@
 <body>
 <script type="text/javascript">
 	alert("로그인 되지 않았습니다 \n아이디와 패스워드를 확인하세요");
-	location.href="ListController.do";
+	location.href="HomeController.do";
 </script>
 </body>
 </html>

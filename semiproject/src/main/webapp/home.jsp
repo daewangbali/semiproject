@@ -11,9 +11,18 @@
                         <h1 class="display-5 fw-bold" style="font-size: 3cm">에브리코스타임</h1>
                        
                         
+                        <form>
                         <p class="fs-4"></p>
-                        <a class="btn btn-warning " style="background-color: #FFD700;border: 0px; width: 150px 100px;align-content: center; " href="RegisterMemberFormController.do">에.코.타와 함께하기</a>
+                        <a class="btn btn-warning " style="background-color: #FFD700;border: 0px; width: 150px 100px;align-content: center; " href="HomeController.do" onclick="openPopup()">에.코.타와 함께하기</a>
+                  	 </form>
+                  	 <script type="text/javascript">
+                  	 function openPopup(){
+                  		 window.open("RegisterMemberFormController.do", "join", "width=300, height=300, left=200, top=100");
+                  	 }
+                  	 </script>
+                  	 
                     </div>
+                    
             </div>
         </header>
         <br>
