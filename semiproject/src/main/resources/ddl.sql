@@ -66,4 +66,5 @@ CREATE SEQUENCE SemiComment_seq
 --SemiBoard number add
 ALTER TABLE SemiBoard ADD hits NUMBER DEFAULT 0;
 SELECT * FROM SemiBoard
+select * from semimember;
 

@@ -12,10 +12,10 @@ public class DeleteMemberController implements Controller{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	
-		String id=request.getParameter("id");
-		MemberDAO.getInstance().deleteMember(id);
 		HttpSession session=request.getSession(false);
+		MemberVO mvo= (MemberVO) session.getAttribute("mvo");
+		String id=mvo.getId();
+		MemberDAO.getInstance().deleteMember(id);
 		session.invalidate();
 		return "redirect:delete-result.jsp";
 	}
