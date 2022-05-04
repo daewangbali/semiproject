@@ -83,5 +83,11 @@ FROM ( SELECT ROW_NUMBER() OVER(ORDER BY no DESC) as rnum,postno,posttitle,TO_CH
 			FROM(SELECT ROW_NUMBER() OVER(ORDER BY postno DESC) as rnum, postno, posttitle, to_char(postdate,'yyyy.mm.dd') as postDate, hits, id, postCategory FROM semiboard WHERE postCategory='소통')
 			WHERE rnum between 1 and 2
 			
+
+--조회수 업데이트
+Update semiboard SET hits=hits+1 WHERE postNo=2
+			
+SELECT * FROM SEMIBOARD			
+			
 			
 			

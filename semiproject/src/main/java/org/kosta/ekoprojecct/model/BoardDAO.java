@@ -85,7 +85,44 @@ public class BoardDAO {
 		}
 		return totalPostCount;
 	}
-	
+	public BoardVO postDetail(int no) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BoardVO bvo = null;
+		try {
+			con  = dataSource.getConnection();
+			StringBuilder sql = new StringBuilder("select b.postNo, b.postTitle, b.postContent, b.postDate, b.postCategory, b.hits, m.id, m.name ");
+			sql.append("from SemiBoard b , semimember m ");
+			sql.append("where m.id = b.id and b.postNo = ?");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				MemberVO mvo = new MemberVO();
+				mvo.setId(rs.getString(7));
+				mvo.setName(rs.getString(8));
+				bvo = new BoardVO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6),mvo);
+				
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return bvo;
+	}
+	public void updateHits(int postNo) throws SQLException{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con=dataSource.getConnection();
+			String sql="Update semiboard SET hits=hits+1 WHERE postNo=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, postNo);
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}
+	}
 }
 
 

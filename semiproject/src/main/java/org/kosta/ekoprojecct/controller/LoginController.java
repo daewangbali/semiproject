@@ -1,5 +1,7 @@
 package org.kosta.ekoprojecct.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -22,6 +24,9 @@ public class LoginController implements Controller {
 		if(vo!=null) {
 			HttpSession session=request.getSession();
 			session.setAttribute("mvo", vo);
+			//로그인 유지 기간동안 조회수 재증가 방지를 위해 myboardList를 세션에 저장한다
+			session.setAttribute("myboardNoList", new ArrayList<String>());
+			
 			viewName="redirect:HomeController.do";
 		}
 		
