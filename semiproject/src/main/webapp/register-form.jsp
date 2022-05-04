@@ -36,7 +36,7 @@
             	<img src="images/everykostatime_logo0.png" style="width: 35px; padding-right: 3px; padding-left: 3px; padding-top: 6px">
                 <a class="navbar-brand font-face  " style="width:35px; padding-bottom: 2px; color:white; font-size: 20px" >EVERY KOSTIME</a>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-<form action="RegisterMemberController.do" method="post">
+<form action="RegisterMemberController.do" method="post" id="registerForm" onsubmit="return checkRegForm()">
 	<input type="text" name="id" id="memberId" placeholder="아이디" required="required" onkeyup="checkId()"><br>
 	<span id="checkResult"></span><br>
 	<input type="text" name="name" placeholder="이름" required="required"><br>
@@ -44,9 +44,8 @@
 	<input type="text" name="tel" placeholder="전화번호" required="required"><br>
 	<input type="text" name="kostaNO" placeholder="기수" required="required"><br>
 	<br>
-	<button type="submit">회원가입</button>
+	<input type="submit" onclick="closePopup()" value="회원가입">
 </form>
-
 <script type="text/javascript">
 	let checkIdFlag=false;
 	function checkRegForm() {
@@ -75,6 +74,15 @@
 			xhr.open("get", "CheckIdController.do?id="+memberId);
 			xhr.send();
 		}
+	}
+	function closePopup(){
+		if(checkIdFlag==true){
+			alert("회원가입이 완료되었습니다!");
+			self.close();
+		}else{
+			return;
+		}
+		
 	}
 
 </script>

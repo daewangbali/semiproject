@@ -17,7 +17,7 @@
                   	 </form>
                   	 <script type="text/javascript">
                   	 function openPopup(){
-                  		 window.open("RegisterMemberFormController.do", "join", "width=300, height=300, left=200, top=100");
+                  		 window.open("RegisterMemberFormController.do", "join", "width=650, height=300, left=200, top=100");
                   	 }
                   	 </script>
                   	 
