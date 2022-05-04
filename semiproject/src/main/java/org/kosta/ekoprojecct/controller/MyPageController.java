@@ -7,7 +7,7 @@ public class MyPageController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setAttribute("url", "MyPage.jsp");
+		request.setAttribute("url", "myPage.jsp");
 		return "layout.jsp";
 	}
 
