@@ -123,6 +123,43 @@ public class BoardDAO {
 			closeAll(pstmt, con);
 		}
 	}
+	
+	public ArrayList<BoardVO> findPostByFilterAndWord(String filter, String word) throws SQLException {
+		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+		Connection con = dataSource.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			System.out.println(filter);
+			System.out.println(word);
+			StringBuilder sql = new StringBuilder();
+			sql.append("select b.postNo, b.postTitle, b.postDate, b.postCategory, b.hits , m.name, m.id ");
+			sql.append("from SemiBoard b , semimember m ");
+			sql.append("where m.id = b.id ");
+
+			if (filter.equals("name")) {
+				sql.append("and b.postTitle LIKE '%' || ? || '%'");
+			} else if (filter.equals("content")) {
+				sql.append("and b.postContent LIKE '%' || ? || '%'");
+			}
+
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, word);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				MemberVO mvo = new MemberVO(rs.getString("id"));
+				list.add(new BoardVO(rs.getInt("postNo"), rs.getString("postTitle"), rs.getString("postDate"),
+						rs.getString("postCategory"), rs.getInt("hits"), mvo));
+			}
+
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+
+		return list;
+	}
 }
 
 
