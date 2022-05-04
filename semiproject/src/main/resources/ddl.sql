@@ -66,3 +66,22 @@ CREATE SEQUENCE SemiComment_seq
 --SemiBoard number add
 ALTER TABLE SemiBoard ADD hits NUMBER DEFAULT 0;
 SELECT * FROM SemiBoard
+
+SELECT postNo,postTitle,postDate,hits,id 
+FROM ( SELECT ROW_NUMBER() OVER(ORDER BY no DESC) as rnum,postno,posttitle,TO_CHAR(postDate,'YYYY.MM.DD') as postDate,hits,id 
+			FROM semiboard 
+			) b , semimember m 
+			WHERE b.id=m.id AND rnum BETWEEN 1 AND 5
+			
+			SELECT b.rnum,b.postNo, b.postTitle, m.id, TO_CHAR(b.postDate,'yyyy.mm.dd') as postDate, b.hits 
+			FROM(SELECT ROW_NUMBER() OVER(ORDER BY postno DESC) as rnum, postno, posttitle, to_char(postdate,'yyyy.mm.dd') as postDate, hits, id, postCategory FROM semiboard WHERE postCategory='소통') b, SemiMember m 
+			WHERE m.id=b.id 
+			AND b.rnum between 1 and 2;
+			ORDER BY b.postNo desc 
+			
+			SELECT rnum, postNo, postTitle,id, postDate, postCategory, hits
+			FROM(SELECT ROW_NUMBER() OVER(ORDER BY postno DESC) as rnum, postno, posttitle, to_char(postdate,'yyyy.mm.dd') as postDate, hits, id, postCategory FROM semiboard WHERE postCategory='소통')
+			WHERE rnum between 1 and 2
+			
+			
+			
