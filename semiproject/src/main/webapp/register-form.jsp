@@ -36,7 +36,7 @@
             	<img src="images/everykostatime_logo0.png" style="width: 35px; padding-right: 3px; padding-left: 3px; padding-top: 6px">
                 <a class="navbar-brand font-face  " style="width:35px; padding-bottom: 2px; color:white; font-size: 20px" >EVERY KOSTIME</a>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-<form action="RegisterMemberController.do" method="post" id="registerForm" onsubmit="return checkRegForm()">
+<form action="RegisterMemberController.do" method="post" id="registerForm"  >
 	<input type="text" name="id" id="memberId" placeholder="아이디" required="required" onkeyup="checkId()"><br>
 	<span id="checkResult"></span><br>
 	<input type="text" name="name" placeholder="이름" required="required"><br>
@@ -44,14 +44,18 @@
 	<input type="text" name="tel" placeholder="전화번호" required="required"><br>
 	<input type="text" name="kostaNO" placeholder="기수" required="required"><br>
 	<br>
-	<input type="submit" onclick="closePopup()" value="회원가입">
+	<input type="button" value="회원가입" onclick="register()">
 </form>
 <script type="text/javascript">
 	let checkIdFlag=false;
-	function checkRegForm() {
+	function register() {
 		if(checkIdFlag==false){
 			alert("아이디 중복확인하세요");
-			return false;
+			
+		}else{
+		//	alert(document.getElementById("registerForm"));
+			document.getElementById("registerForm").submit();
+		//	self.close();
 		}
 	}
 	function checkId() {

@@ -49,7 +49,7 @@ public class MemberDAO {
 			pstmt.setString(5, password);
 			
 			int result = pstmt.executeUpdate();
-			System.out.println(result+" Columns have been updated.");
+			System.out.println(result+" registerMember");
 			
 		}finally {
 			closeAll(pstmt, con);

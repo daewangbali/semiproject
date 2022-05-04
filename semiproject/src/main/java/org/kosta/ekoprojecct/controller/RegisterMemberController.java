@@ -14,11 +14,11 @@ public class RegisterMemberController implements Controller {
 		String tel = request.getParameter("tel");
 		String kostaNO = request.getParameter("kostaNO");
 		String password = request.getParameter("password");
-		
+		System.out.println("RegisterMemberController");
 		MemberDAO.getInstance().registerMember(id, name, tel, kostaNO, password);
 		
-		request.setAttribute("url", "register-success.jsp");
-		return "layout.jsp";
+		//request.setAttribute("url", "register-success.jsp");
+		return "register-success.jsp";
 	}
 
 }
