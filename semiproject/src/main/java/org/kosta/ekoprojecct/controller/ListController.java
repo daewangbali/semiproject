@@ -21,7 +21,7 @@ public class ListController implements Controller {
 		else
 			pagination=new Pagination(BoardDAO.getInstance().getTotalPostCount(), Integer.parseInt(pageNo));
 		
-		//list.jsp에서 페이징처리를 하기 위헤 Pagination 객체를 공유한다
+		//list.jsp에서 페이징처리를 하기 위해 Pagination 객체를 공유한다
 		request.setAttribute("pagination", pagination);
 		
 		String postCategory=(String)request.getParameter("postCategory");

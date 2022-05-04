@@ -20,7 +20,6 @@ public class SearchListByFilterAndWord implements Controller {
 		
 		request.setAttribute("list", list);
 		request.setAttribute("url", "board/list.jsp");
-		
 		return "layout.jsp";
 	}
 
