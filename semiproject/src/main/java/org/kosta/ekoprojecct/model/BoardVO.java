@@ -13,6 +13,19 @@ public class BoardVO {
 		super();
 	}
 
+	public BoardVO(int postNo, String postTitle, String postContent, String postDate, String postCategory, int hits,
+			MemberVO memberVO) {
+		super();
+		this.postNo = postNo;
+		this.postTitle = postTitle;
+		this.postContent = postContent;
+		this.postDate = postDate;
+		this.postCategory = postCategory;
+		this.hits = hits;
+		this.memberVO = memberVO;
+	}
+
+
 	public int getPostNo() {
 		return postNo;
 	}
