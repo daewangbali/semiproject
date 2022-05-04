@@ -13,7 +13,7 @@ public class RegisterMemberController implements Controller {
 		String name = request.getParameter("name");
 		String tel = request.getParameter("tel");
 		String kostaNO = request.getParameter("kostaNO");
-		String password = request.getParameter("password");
+		String password = request.getParameter("password"); 
 		
 		MemberDAO.getInstance().registerMember(id, name, tel, kostaNO, password);
 		

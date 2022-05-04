@@ -46,7 +46,7 @@ public class MemberDAO {
 			pstmt.setString(2, name);
 			pstmt.setString(3, tel);
 			pstmt.setString(4, kostaNO);
-			pstmt.setString(5, password);
+			pstmt.setString(5, password); 
 			
 			int result = pstmt.executeUpdate();
 			System.out.println(result+" Columns have been updated.");
