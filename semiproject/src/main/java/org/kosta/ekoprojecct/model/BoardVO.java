@@ -25,6 +25,15 @@ public class BoardVO {
 		this.memberVO = memberVO;
 	}
 
+	public BoardVO(int postNo, String postTitle, String postDate, String postCategory, int hits, MemberVO memberVO) {
+		super();
+		this.postNo = postNo;
+		this.postTitle = postTitle;
+		this.postDate = postDate;
+		this.postCategory = postCategory;
+		this.hits = hits;
+		this.memberVO = memberVO;
+	}
 
 	public int getPostNo() {
 		return postNo;
