@@ -67,6 +67,7 @@ CREATE SEQUENCE SemiComment_seq
 ALTER TABLE SemiBoard ADD hits NUMBER DEFAULT 0;
 SELECT * FROM SemiBoard
 
+<<<<<<< HEAD
 SELECT postNo,postTitle,postDate,hits,id 
 FROM ( SELECT ROW_NUMBER() OVER(ORDER BY no DESC) as rnum,postno,posttitle,TO_CHAR(postDate,'YYYY.MM.DD') as postDate,hits,id 
 			FROM semiboard 
@@ -91,3 +92,21 @@ SELECT * FROM SEMIBOARD
 			
 			
 			
+=======
+--SemiBoard table 추가
+INSERT INTO SemiBoard(postNo, postContent, postDate, postCategory, postTitle, id, hits)
+VALUES(SemiBoard_seq.nextval, '안녕하세요 좋은 아침입니다 잘 지내셨나요', sysdate, '두시','헬로우', 'java', 0)
+
+INSERT INTO SemiBoard(postNo, postContent, postDate, postCategory, postTitle, id, hits)
+VALUES(SemiBoard_seq.nextval, '안녕하세요 좋은 아침입니다 잘 지내셨나요', sysdate, '소통','헬로우', 'java', 0)
+
+select b.postNo, b.postTitle, b.postDate, b.postCategory, b.hits , m.name
+from SemiBoard b , semimember m
+where m.id = b.id
+and b.postTitle LIKE '%헬%'
+
+INSERT INTO SemiBoard(postNo, postContent, postDate, postCategory, postTitle, id, hits)
+VALUES(SemiBoard_seq.nextval, '안녕하세요 좋은 아침입니다 잘 지내셨나요', sysdate, '자유','헬로우', 'java', 0)
+
+COMMIT
+>>>>>>> branch 'main' of https://github.com/daewangbali/semiproject.git
