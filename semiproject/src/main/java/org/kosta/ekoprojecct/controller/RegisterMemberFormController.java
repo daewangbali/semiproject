@@ -7,8 +7,8 @@ public class RegisterMemberFormController implements Controller{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setAttribute("url", "register-form.jsp");
-		return "layout.jsp";
+		//request.setAttribute("url", "register-form.jsp");
+		return "register-form.jsp";
 	}
 
 }

@@ -54,10 +54,10 @@
  <c:forEach begin="${pagination.startPageOfPageGroup}" end="${pagination.endPageOfPageGroup}" var="page">
  <c:choose>
  	<c:when test="${page==pagination.nowPage}">
- 		<li class="page-item active"><a class="page-link" href="ListController.do?pageNo=${page}">${page}</a></li>
+ 		<li class="page-item active"><a class="page-link" href="ListController.do?pageNo=${page}&postCategory=${postCategory}">${page}</a></li>
  	</c:when>
  	<c:otherwise>
-  		<li class="page-item"><a class="page-link" href="ListController.do?pageNo=${page}">${page}</a></li>
+  		<li class="page-item"><a class="page-link" href="ListController.do?pageNo=${page}&postCategory=${postCategory}">${page}</a></li>
  	</c:otherwise>
  </c:choose>
  </c:forEach>
