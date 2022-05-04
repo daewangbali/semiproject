@@ -119,5 +119,36 @@ public class MemberDAO {
 		
 		return vo;
 	}
+	public void updateMember(MemberVO vo) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="UPDATE SemiMEMBER SET name=?,tel=?,kostaNO=?,password=? WHERE id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getTel());
+			pstmt.setString(3, vo.getKostaNO());
+			pstmt.setString(4, vo.getPassword());
+			pstmt.setString(5, vo.getId());
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);		
+		}	
+	}
 
+	public void deleteMember(String id) throws Exception{
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="DELETE FROM SEMIMEMBER WHERE id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);		
+		}	
+		System.out.println("db에 "+id+" 정보 삭제");
+	}
 }
