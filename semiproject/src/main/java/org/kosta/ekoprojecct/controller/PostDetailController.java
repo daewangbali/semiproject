@@ -17,14 +17,15 @@ public class PostDetailController implements Controller {
 		//로그인 유지기간동안 읽은 글에 대한 조회수 재증가 방지를 위한 코드
 		HttpSession session=request.getSession(false);
 		@SuppressWarnings("unchecked")
-		ArrayList<String> myboardNoList=(ArrayList<String>) session.getAttribute("myboardNoList");
-		if(myboardNoList.contains(Integer.toString(no))==false) {
+		ArrayList<Integer> myboardNoList=(ArrayList<Integer>) session.getAttribute("myboardNoList");
+		if(myboardNoList.contains(no)==false) {
 			//조회수 증가
 			BoardDAO.getInstance().updateHits(no);
-			myboardNoList.add(Integer.toString(no));
+			myboardNoList.add(no);
 		}
 		//조회수 증가
 		//BoardDAO.getInstance().updateHits(no);
+		
 		BoardVO bvo=  BoardDAO.getInstance().postDetail(no);
 		request.setAttribute("bvo", bvo);
 		request.setAttribute("url", "board/post-detail.jsp");

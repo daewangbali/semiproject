@@ -85,6 +85,7 @@ public class BoardDAO {
 		}
 		return totalPostCount;
 	}
+	//게시물 상세보기
 	public BoardVO postDetail(int no) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -110,6 +111,57 @@ public class BoardDAO {
 		}
 		return bvo;
 	}
+	//게시물 삭제
+	public void deletePost(int no) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "delete from SemiBoard where postno = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}
+	}
+	//게시물 작성
+	public void posting(BoardVO bvo) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "insert into semiboard(postNo,postTitle,postContent,postDate,postCategory,id) values(SemiBoard_seq.nextval,?,?,sysdate,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bvo.getPostTitle());
+			pstmt.setString(2, bvo.getPostContent());
+			pstmt.setString(3, bvo.getPostCategory());
+			pstmt.setString(4, bvo.getMemberVO().getId());
+			pstmt.executeUpdate();
+			
+		}finally {
+			closeAll(pstmt, con);
+		}
+		
+	}
+	//게시물 수정
+	public void updatePost(BoardVO bvo) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "update SemiBoard set posttitle=?, postcontent=? where postno=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bvo.getPostTitle());
+			pstmt.setString(2, bvo.getPostContent());
+			pstmt.setInt(3, bvo.getPostNo());
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}
+	}
+	
+	
 	public void updateHits(int postNo) throws SQLException{
 		Connection con = null;
 		PreparedStatement pstmt = null;

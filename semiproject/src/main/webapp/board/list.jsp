@@ -65,6 +65,13 @@
  	<li class="page-item"><a class="page-link" href="ListController.do?pageNo=${pagination.endPageOfPageGroup+1 }">Next</a></li>
  </c:if>
 </ul>
+<%-- 로그인되어 있을 때만 글쓰기 버튼 활성화 --%>
+<br>
+<c:if test="${sessionScope.mvo!=null}">
+<button onclick="location.href ='WritePostFormController.do?postCategory=${postCategory}'" type="button" class="btn btn-warning" style="float: right;color: white;">글쓰기</button>
+</c:if>
+<br>
 </div>
- 
+<br>
+<br>
   
