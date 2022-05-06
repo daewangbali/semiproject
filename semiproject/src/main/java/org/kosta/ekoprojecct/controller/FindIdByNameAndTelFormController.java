@@ -7,7 +7,7 @@ public class FindIdByNameAndTelFormController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setAttribute("url", "findidbynameandtel-form.jsp");
+		request.setAttribute("url", "findid/findidbynameandtel-form.jsp");
 		return "layout.jsp";
 	}
 

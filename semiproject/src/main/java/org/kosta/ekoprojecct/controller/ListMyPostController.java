@@ -33,7 +33,7 @@ public class ListMyPostController implements Controller {
 		list = BoardDAO.getInstance().findPostByMyId(id, pagination); //이부분 수정하기!!!!
 		
 		request.setAttribute("list", list);
-		request.setAttribute("url", "findpostbymyid.jsp");
+		request.setAttribute("url", "mypage/findpostbymyid.jsp");
 		return "layout.jsp";
 	}
 

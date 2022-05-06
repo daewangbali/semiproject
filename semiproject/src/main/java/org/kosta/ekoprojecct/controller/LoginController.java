@@ -22,7 +22,7 @@ public class LoginController implements Controller {
 
 		MemberVO vo=MemberDAO.getInstance().login(id,password);
 		System.out.println(vo);
-		String viewName="login-fail.jsp";
+		String viewName="logfunction/login-fail.jsp";
 		
 		if(vo!=null) {
 			HttpSession session=request.getSession();

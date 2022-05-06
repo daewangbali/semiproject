@@ -17,6 +17,6 @@ public class DeleteMemberController implements Controller{
 		String password=mvo.getPassword();
 		MemberDAO.getInstance().deleteMember(password);
 		session.invalidate();
-		return "myPage.jsp";
+		return "mypage/myPage.jsp";
 		}
 }
