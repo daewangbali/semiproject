@@ -36,43 +36,45 @@
                 <a class="navbar-brand font-face  " href="HomeController.do" style="padding-bottom: 2px" >EVERY KOSTIME</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent"  >
-                      <form action="LoginController.do" method="post" id="login_form">
-                    <ul class="navbar-nav  ms-auto mb-2 mb-lg-0" >
+                      
                     <c:choose>
-                    <c:when test="${sessionScope.mvo==null }">
+                    <c:when test="${sessionScope.mvo==null}">
+                    <form action="LoginController.do" method="post" id="login_form">
+                    <ul class="navbar-nav  ms-auto mb-2 mb-lg-0" >
 	                     <!-- <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li> -->                        
                         <li style="padding: 5px"><input id="id" name="id" placeholder="아이디" style="border-color:#FFD700"></li>
                         <li style="padding: 5px"><input id="password" name="password" placeholder="패스워드"style="border-color:#FFD700"></li>
-                        <li class="nav-item"><a class="nav-link" id="btn_login" href="#" onclick="return login_form()" style="color: white; ">Login</a></li>
-                        <li class="nav-item"><a class="nav-link" href="RegisterMemberFormController.do" style="color: white; ">Join</a></li>
+                        <li class="nav-item"><a class="nav-link" id="login_form" href="#" onclick="return login_form()" style="color: white;">Login</a></li>
+						<li class="nav-item"><a class="nav-link" onclick="openPopup()" style="color: white; ">Join</a></li>   
+						<li class="nav-item"><a class="nav-link" id="find_form" href="FindIdByNameAndTelFormController.do" onclick="" style="color: white;">FindId</a></li>                  	
+                     	 </ul>
+                     	 </form>
+                     	 <script type="text/javascript">
+		                  	 function openPopup(){
+		                  		 window.open("RegisterMemberFormController.do", "join", "width=650, height=300, left=200, top=100");
+		                  	 }
+                  	  </script>	
                       <!--   <li class="nav-item"><a class="nav-link" href="#!" style="color: white">Join</a></li> -->
                     </c:when>
                     <c:otherwise>
-                    	<div style="position: relative; margin-right: 25px; top: 7px;">${sessionScope.mvo.kostaNO }님 환영합니다!</div>
-                        <li class="nav-item"><a class="nav-link" href="MyPageController.do" style="color: white; position: relative; left: 0.5px;">My Page</a></li>
-                        <li class="nav-item"><a class="nav-link" href="LogoutController.do" style="color: white; position: relative; left:5px;">Logout</a></li>
+                    	<div style="position: relative; margin-right: 25px; top: 7px;">${sessionScope.mvo.kostaNO }기 환영합니다!</div>
+                        <a class="nav-link" href="MyPageController.do" style="color: white; position: relative; left: 0.5px;">My Page</a>
+                        
+                        
+                        <a class="nav-link" href="#" onclick="logout()" style="color: white; position: relative; left:5px;">Logout</a>
+                        <form id="logoutForm" method="post" action="LogoutController.do"></form>
+						 <script type="text/javascript">
+		                  	 function logout(){
+		                  		 document.getElementById("logoutForm").submit();
+		                  	 }
+                  	  </script>	
                     </c:otherwise>
                     </c:choose>
-                    </ul>
-                   </form>
+                  
                 </div>
             </div>
         </nav>
-         <script type="text/javascript">
-        	function login_form() {
-        		if(document.getElementById("id").value==''){
-        			alert("아이디를 입력하세요.");
-        			return false;
-        		}
-        		if(document.getElementById("password").value==''){
-        			alert("비밀번호를 입력하세요.");
-        			return false;
-        		}
-        		
-        		document.getElementById("login_form").submit();
-				
-			}
-        </script>
+         
         <div class="row">
 		<div class="col-sm-10 offset-sm-1">
 			<%-- 각 컨트롤러에서 request 에 할당한 url을 이용해 import 한다 --%>
@@ -88,4 +90,19 @@
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
     </body>
+    <script type="text/javascript">
+        	function login_form() {
+        		if(document.getElementById("id").value==''){
+        			alert("아이디를 입력하세요.");
+        			return false;
+        		}
+        		if(document.getElementById("password").value==''){
+        			alert("비밀번호를 입력하세요.");
+        			return false;
+        		}
+        		
+        		document.getElementById("login_form").submit();
+				
+			}
+        </script>
 </html>

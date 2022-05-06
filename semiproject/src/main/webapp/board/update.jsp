@@ -8,71 +8,47 @@
 		<c:when test="${bvo.postCategory=='소통'}">
 			<div>
 			<img src="images/threeperson_logo.png" width="100" > &nbsp;
-			
                <a href="ListController.do?postCategory=소통" style="font-size: 1.5cm;text-decoration: none;color: black;align-items: flex-end;">소통게시판</a>
-               
                <p class="mb-0"></p>
             </div>
 		</c:when>
 		<c:otherwise>
 			<div>
 			<img src="images/free_logo.png" width="100" > &nbsp;
-			
                <a href="ListController.do?postCategory=자유" style="font-size: 1.5cm;text-decoration: none;color: black;align-items: flex-end;">자유게시판</a>
-               
                <p class="mb-0"></p>
             </div>
 		</c:otherwise>
 	</c:choose>
 </div>
 <br>
+
+<form action="UpdatePostController.do" method="post">
 <table class="table ">
 	<tr>
 		<td width="10%"><mark style="background-color: #fff099">글번호</mark> ${bvo.postNo}</td>
-		<td width="45%"><mark style="background-color: #fff099">제목</mark> ${bvo.postTitle}</td>
+		
+		<td width="45%"><mark style="background-color: #fff099">제목</mark> <input type="text" id="title" name="title" value="${bvo.postTitle}" size="60"></td>
 		<td width="15%"><mark style="background-color: #fff099">작성자</mark> ${bvo.memberVO.name}</td>
 		<td width="20%"><mark style="background-color: #fff099">작성일</mark> ${bvo.postDate}</td>
 		<td width="10%"><mark style="background-color: #fff099">조회수</mark> ${bvo.hits}</td>
 	</tr>
 	<tr>
 		<td colspan="5" height="300">
-		<pre><font size="4">${bvo.postContent}</font></pre>
+		<input type="hidden" name="no" value="${bvo.postNo}">
+		<pre><font size="4"><textarea rows="10" class="form-control" name="content" placeholder="본문내용" >${bvo.postContent}</textarea></font></pre>
 		</td>
 	</tr>
-	 <%--<c:if test="${sessionScope.mvo.id==bvo.memberVO.id }"> --%>
+	
 	<tr>
-		
 		<td colspan="5" class="text-center">
-			<form id="deleteForm" action="DeletePostController.do" method="post">
-				<input type="hidden" name="no" value="${bvo.postNo}">
-				<input type="hidden" name="postCategory" value="${bvo.postCategory}">
-			</form> 
-			 <form id="updateForm" action="UpdatePostFormController.do" method="post">
-				<input type="hidden" name="no" value="${bvo.postNo}">
-			</form>
-				
-			 	<button onclick="deletePost()" type="button" class="btn btn-outline-danger">삭제</button>
-				<button onclick="updatePost()" type="button" class="btn btn-outline-warning">수정</button>
-					
+			<button type="submit" class="btn btn-success">확인</button>
+			<button type="reset" class="btn btn-light">취소</button>	
 		</td>
-	</tr>
-	 <%--</c:if> --%>
-	
-	
+	</tr>	
 </table>
+</form>	
 
-<script type="text/javascript">
-	function deletePost() {
-		if(confirm("게시물을 삭제하시겠습니까?")){
-			document.getElementById("deleteForm").submit();
-		}
-	}
-	function updatePost() {
-		if(confirm("게시물을 수정하시겠습니까?")){
-			document.getElementById("updateForm").submit();
-		}
-	}
-</script>
 	
 
 

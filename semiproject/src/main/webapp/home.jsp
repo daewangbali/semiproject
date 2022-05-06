@@ -9,24 +9,32 @@
                     <div class="m-4 m-lg-5">
                         
                         <h1 class="display-5 fw-bold" style="font-size: 3cm">에브리코스타임</h1>
-                       
+                     	<c:choose>
+                        <c:when test="${sessionScope.mvo==null }">                    
+                        <form>
                         <p class="fs-4"></p>
-                        <c:choose>
-                        <c:when test="${sessionScope.mvo==null }">
-                        <a class="btn btn-warning " style="background-color: #FFD700;border: 0px; width: 150px 100px;align-content: center; " href="RegisterMemberFormController.do">에.코.타와 함께하기</a>
-                    	</c:when>
-                    	<c:otherwise>
-                    		<form action="SearchListByFilterAndWord.do" method="get">
+                        <a class="btn btn-warning " style="background-color: #FFD700;border: 0px; width: 150px 100px;align-content: center; " href="HomeController.do" onclick="openPopup()">에.코.타와 함께하기</a>
+                  	 	</form>
+                  	 	</c:when>
+                  	 	<c:otherwise>
+                  	 	<form action="SearchListByFilterAndWord.do" method="get">
   								<select name="filter">
-    							<option value="name">제목</option>
+    							<option value="name" >제목</option>
     							<option value="content">내용</option>
     							<input type="text" name="word" placeholder="검색" required="required">
   								</select>
-  								<button type="submit">게시물 조회</button>
-							</form>
-                    	</c:otherwise>
-                    	</c:choose>
+  								<button type="submit" class="btn btn-warning " style="background-color: #FFD700;border: 0px; width: 150px 100px;align-content: center;">게시물 조회</button>
+						</form>
+                  	 	</c:otherwise>
+                  	 	</c:choose>
+                  	 <script type="text/javascript">
+                  	 function openPopup(){
+                  		 window.open("RegisterMemberFormController.do", "join", "width=650, height=300, left=200, top=100");
+                  	 }
+                  	 </script>
+                  	 
                     </div>
+                    
             </div>
             </div>
         </header>

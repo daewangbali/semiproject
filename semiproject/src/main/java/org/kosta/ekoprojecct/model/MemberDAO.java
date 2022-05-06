@@ -46,10 +46,10 @@ public class MemberDAO {
 			pstmt.setString(2, name);
 			pstmt.setString(3, tel);
 			pstmt.setString(4, kostaNO);
-			pstmt.setString(5, password);   
+			pstmt.setString(5, password);
 			
 			int result = pstmt.executeUpdate();
-			System.out.println(result+" Columns have been updated.");
+			System.out.println(result+" registerMember");
 			
 		}finally {
 			closeAll(pstmt, con);
@@ -63,13 +63,13 @@ public class MemberDAO {
 		ResultSet rs=null;
 		try {
 			con=dataSource.getConnection();
-			String sql="SELECT name FROM SemiMEMBER WHERE id=? AND password=?";
+			String sql="SELECT name, tel, KOSTANO FROM SemiMEMBER WHERE id=? AND password=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, password);	
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
-				vo=new MemberVO(id,rs.getString("name"),null,null,password);
+				vo=new MemberVO(id,rs.getString("name"),rs.getString("tel"),rs.getString("KOSTANo"),password);
 			}
 		}finally {
 			closeAll(rs, pstmt, con);
@@ -86,7 +86,7 @@ public class MemberDAO {
 		ResultSet rs=null;
 		try {
 			con=dataSource.getConnection();
-			String sql="SELECT COUNT(*) FROM SemiMEMBER WHERE id=? ";
+			String sql="SELECT COUNT(*) FROM SemiMEMBER WHERE id=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs=pstmt.executeQuery();
@@ -98,7 +98,46 @@ public class MemberDAO {
 		
 		return flag;
 	}
-
+	public boolean passwordcheck(String password, String id) throws SQLException {
+		boolean flag=false;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="SELECT COUNT(*) FROM SEMIMEMBER WHERE ID=? and password=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, password);
+			rs=pstmt.executeQuery();
+			if(rs.next()&&(rs.getInt(1)>0))
+			flag=true;
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		
+		return flag;
+	}
+	public MemberVO findIdByNameAndTel(String name, String tel) throws SQLException {
+		MemberVO vo=null;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="SELECT id FROM SemiMEMBER WHERE name=? AND tel=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, tel);
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				vo=new MemberVO(rs.getString(1),name,tel,null,null);
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		
+		return vo;
+	}
 	public void updateMember(MemberVO vo) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;

@@ -12,6 +12,21 @@ public class BoardVO {
 	public BoardVO() {
 		super();
 	}
+	public BoardVO(int postNo, String postTitle, String postContent) {
+		super();
+		this.postNo = postNo;
+		this.postTitle = postTitle;
+		this.postContent = postContent;
+	}
+
+
+	public BoardVO(String postTitle, String postContent, String postCategory, MemberVO memberVO) {
+		super();
+		this.postTitle = postTitle;
+		this.postContent = postContent;
+		this.postCategory = postCategory;
+		this.memberVO = memberVO;
+	}
 
 	public BoardVO(int postNo, String postTitle, String postContent, String postDate, String postCategory, int hits,
 			MemberVO memberVO) {

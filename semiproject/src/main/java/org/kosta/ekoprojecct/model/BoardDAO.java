@@ -134,16 +134,28 @@ public class BoardDAO {
 			System.out.println(filter);
 			System.out.println(word);
 			StringBuilder sql = new StringBuilder();
+			
 			sql.append("select b.postNo, b.postTitle, b.postDate, b.postCategory, b.hits , m.name, m.id ");
 			sql.append("from SemiBoard b , semimember m ");
 			sql.append("where m.id = b.id ");
-			
 			if (filter.equals("name")) {
 				sql.append("and b.postTitle LIKE '%' || ? || '%'");
 			} else if (filter.equals("content")) {
 				sql.append("and b.postContent LIKE '%' || ? || '%'");
 			}
 			
+			/*
+			sql.append("SELECT rnum, postNo, postTitle,id, postDate, postCategory, hits ");	
+			sql.append("FROM(select b.postNo, b.postTitle, b.postDate, b.postCategory, b.hits , m.name, m.id ");
+			sql.append("from SemiBoard b , semimember m ");
+			sql.append("where m.id = b.id ");
+			if (filter.equals("name")) {
+				sql.append("and b.postTitle LIKE '%' || ? || '%' ");
+			} else if (filter.equals("content")) {
+				sql.append("and b.postContent LIKE '%' || ? || '%' ");
+			}
+			sql.append(")WHERE rnum between ? and ?");
+			*/
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, word);
 			rs = pstmt.executeQuery();
@@ -158,6 +170,37 @@ public class BoardDAO {
 			closeAll(rs, pstmt, con);
 		}
 
+		return list;
+	}
+	public ArrayList<BoardVO> findPostByMyId(String id, Pagination pagination) throws SQLException {
+		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+		Connection con = dataSource.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT rnum, postNo, postTitle,id, postDate, postCategory, hits ");
+			sql.append("FROM(SELECT ROW_NUMBER() OVER(ORDER BY postno DESC) as rnum, postno, posttitle, to_char(postdate,'yyyy.mm.dd') as postDate, hits, id, postCategory FROM semiboard WHERE id=?) ");
+			sql.append("WHERE rnum between ? and ? ");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, id);
+			pstmt.setInt(2, pagination.getStartRowNumber());
+			pstmt.setInt(3, pagination.getEndRowNumber());
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				MemberVO memberVO=new MemberVO();
+				memberVO.setId(rs.getString("id"));
+				BoardVO boardVO=new BoardVO();
+				boardVO.setPostNo(rs.getInt("postNo"));
+				boardVO.setPostTitle(rs.getString("postTitle"));
+				boardVO.setHits(rs.getInt("hits"));
+				boardVO.setPostDate(rs.getString("postDate"));
+				boardVO.setMemberVO(memberVO);
+				list.add(boardVO);
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
 		return list;
 	}
 }

@@ -4,19 +4,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.kosta.ekoprojecct.model.MemberDAO;
 import org.kosta.ekoprojecct.model.MemberVO;
 
-public class DeleteMemberController implements Controller{
+public class DeleteMemberFormController implements Controller {
 
-	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session=request.getSession(false);
-		MemberVO mvo= (MemberVO) session.getAttribute("mvo");
-		String password=mvo.getPassword();
-		MemberDAO.getInstance().deleteMember(password);
-		session.invalidate();
-		return "myPage.jsp";
-		}
+		if(session==null||session.getAttribute("mvo")==null)
+			return "redirect:myPage.jsp";	
+		request.setAttribute("url", "delete-form.jsp");
+		return "layout.jsp";
+	}
 }

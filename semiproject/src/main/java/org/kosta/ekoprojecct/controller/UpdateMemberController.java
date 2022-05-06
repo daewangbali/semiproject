@@ -24,6 +24,7 @@ public class UpdateMemberController implements Controller {
 		MemberDAO.getInstance().updateMember(vo);
 		HttpSession session=request.getSession(false);
 		session.setAttribute("mvo", vo);
-		return "redirect:update-result.jsp";
+		request.setAttribute("url", "update-result.jsp");
+		return "layout.jsp";
 	}
 }
