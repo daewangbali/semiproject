@@ -57,7 +57,7 @@
                       <!--   <li class="nav-item"><a class="nav-link" href="#!" style="color: white">Join</a></li> -->
                     </c:when>
                     <c:otherwise>
-                    	<div style="position: relative; margin-right: 25px; top: 7px;">${sessionScope.mvo.kostaNO }님 환영합니다!</div>
+                    	<div style="position: relative; margin-right: 25px; top: 7px;">${sessionScope.mvo.kostaNO }기 환영합니다!</div>
                         <a class="nav-link" href="MyPageController.do" style="color: white; position: relative; left: 0.5px;">My Page</a>
                         
                         

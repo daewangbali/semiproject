@@ -31,7 +31,7 @@
 
 </head>
 <body style="background-color: #FFD700; text-align: center">
-			
+	
             <div class="container px-lg-1">
             	<img src="images/everykostatime_logo0.png" style="width: 35px; padding-right: 3px; padding-left: 3px; padding-top: 6px">
                 <a class="navbar-brand font-face  " style="width:35px; padding-bottom: 2px; color:white; font-size: 20px" >EVERY KOSTIME</a>
@@ -42,16 +42,20 @@
 	<input type="text" name="name" placeholder="이름" required="required"><br>
 	<input type="password" name="password" placeholder="패스워드" required="required"><br>
 	<input type="text" name="tel" placeholder="전화번호" required="required"><br>
-	<input type="text" name="kostaNO" placeholder="기수" required="required"><br>
+	<input type="text" name="kostaNO" id="kostaNO" placeholder="기수" required="required" onkeyup="checkKostaNO()"><br>
+	<span id="checkKostaNO"></span>
 	<br>
 	<input type="button" value="회원가입" onclick="register()">
 </form>
 <script type="text/javascript">
 	let checkIdFlag=false;
+	let checkKostaNo=false;
+	
 	function register() {
 		if(checkIdFlag==false){
-		//	alert("아이디 중복확인하세요");
-			
+			alert("아이디 중복확인하세요");
+		}else if(checkKostaNo==false){
+			alert("입력하신 KostaNo를 확인하세요");
 		}else{
 		//	alert(document.getElementById("registerForm"));
 			document.getElementById("registerForm").submit();
@@ -79,15 +83,33 @@
 			xhr.send();
 		}
 	}
-	/* function closePopup(){
+	
+	function checkKostaNO(){
+		let kostaNo = document.getElementById("kostaNO").value;
+		let checkKostaNO = document.getElementById("checkKostaNO");
+		let xhr = new XMLHttpRequest();
+		xhr.onload = function(){
+			if(xhr.responseText=="ok"){
+				checkKostaNO.innerHTML = "";
+				checkKostaNo=true;
+			}else{
+				checkKostaNO.innerHTML = "<font color=red>숫자만 입력할 수 있습니다.</font>";
+				checkKostaNo=false;
+			}
+		}
+		xhr.open("get", "CheckKostaNoController.do?kostaNo="+kostaNo);
+		xhr.send();
+	}
+	
+	function closePopup(){
 		if(checkIdFlag==true){
-			//alert("회원가입이 완료되었습니다!");
-			//self.close();
+			alert("회원가입이 완료되었습니다!");
+			self.close();
 		}else{
 			return;
 		}
 		
-	} */
+	}
 
 </script>
 
