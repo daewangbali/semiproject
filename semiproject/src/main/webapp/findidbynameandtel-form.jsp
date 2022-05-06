@@ -4,9 +4,9 @@
 
 <div class="row">
 <div class="col-sm-8 offset-sm-2">
-	<input type="text" name="name" required="required" placeholder="이름"><br>
-	<input type="text" name="tel" required="required" placeholder="전화번호"><br>
-	<input type="button" value="검색"  id="findMemberBtn" onclick="findIdByNameAndTel()">
+	<input type="text" name="name" id="memberName" required="required" placeholder="이름"><br>
+	<input type="text" name="tel" id="memberTel" required="required" placeholder="전화번호"><br>
+	<input type="button" value="검색"  id="findIdBnt" onclick="findIdByNameAndTel()">
 	<br><br>
 	<table class="table table-bordered">
 		<thead>
@@ -14,17 +14,21 @@
 				<th>아이디</th>
 			</tr>
 		</thead>
-		<tbody id="memberTbody">			
+		<tbody id="idTbody">			
 		</tbody>
 	</table>
 	
 	<script type="text/javascript">
 		function findIdByNameAndTel() {
-			let memberTbody=document.getElementById("memberTbody");
-			memberTbody.innerHTML="";
-			let memId=document.getElementById("memberId").value;
-			if(memId==""){
-				alert("아이디를 입력하세요");
+			let idTbody=document.getElementById("idTbody");
+			idTbody.innerHTML="";
+			let memName=document.getElementById("memberName").value;
+			let memTel=document.getElementById("memberTel").value;
+			if(memName==""){
+				alert("이름을 입력하세요");
+				return;
+			}else if(memTel==""){
+				alert("전화번호를 입력하세요");
 				return;
 			}
 			let xhr=new XMLHttpRequest();			
@@ -34,13 +38,12 @@
 					alert(jsonData.message);
 				}else{//회원정보가 있을 때 
 					let memInfo="<tr>";
-					memInfo+="<td>"+jsonData.name+"</td>";
-					memInfo+="<td>"+jsonData.address+"</td>";
+					memInfo+="<td>"+jsonData.id+"</td>";
 					memInfo+="</tr>";
-					memberTbody.innerHTML=memInfo;
+					idTbody.innerHTML=memInfo;
 				}
 			}
-			xhr.open("get", "FindMemberByIdController.do?id="+memId);
+			xhr.open("get", "FindIdByNameAndTelController.do?name="+memName+"&tel="+memTel);
 			xhr.send();
 		}
 	</script>

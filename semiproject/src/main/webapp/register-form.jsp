@@ -31,7 +31,7 @@
 
 </head>
 <body style="background-color: #FFD700; text-align: center">
-	
+			
             <div class="container px-lg-1">
             	<img src="images/everykostatime_logo0.png" style="width: 35px; padding-right: 3px; padding-left: 3px; padding-top: 6px">
                 <a class="navbar-brand font-face  " style="width:35px; padding-bottom: 2px; color:white; font-size: 20px" >EVERY KOSTIME</a>
@@ -50,7 +50,7 @@
 	let checkIdFlag=false;
 	function register() {
 		if(checkIdFlag==false){
-			alert("아이디 중복확인하세요");
+		//	alert("아이디 중복확인하세요");
 			
 		}else{
 		//	alert(document.getElementById("registerForm"));
@@ -79,15 +79,15 @@
 			xhr.send();
 		}
 	}
-	function closePopup(){
+	/* function closePopup(){
 		if(checkIdFlag==true){
-			alert("회원가입이 완료되었습니다!");
-			self.close();
+			//alert("회원가입이 완료되었습니다!");
+			//self.close();
 		}else{
 			return;
 		}
 		
-	}
+	} */
 
 </script>
 

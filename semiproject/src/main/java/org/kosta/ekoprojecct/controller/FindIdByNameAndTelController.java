@@ -11,7 +11,7 @@ public class FindIdByNameAndTelController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String name=request.getParameter("name");
+		String name=request.getParameter("name"); 
 		String tel=request.getParameter("tel");
 		MemberVO vo=MemberDAO.getInstance().findIdByNameAndTel(name,tel);
 		if(vo==null) {

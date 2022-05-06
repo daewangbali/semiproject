@@ -44,8 +44,9 @@
 	                     <!-- <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li> -->                        
                         <li style="padding: 5px"><input id="id" name="id" placeholder="아이디" style="border-color:#FFD700"></li>
                         <li style="padding: 5px"><input id="password" name="password" placeholder="패스워드"style="border-color:#FFD700"></li>
-                        <li class="nav-item"><a class="nav-link" id="login_form" href="#" onclick="return login_form()" style="color: white; ">Login</a></li>
-						<li class="nav-item"><a class="nav-link" onclick="openPopup()" style="color: white; ">Join</a></li>                     	
+                        <li class="nav-item"><a class="nav-link" id="login_form" href="#" onclick="return login_form()" style="color: white;">Login</a></li>
+						<li class="nav-item"><a class="nav-link" onclick="openPopup()" style="color: white; ">Join</a></li>   
+						<li class="nav-item"><a class="nav-link" id="find_form" href="FindIdByNameAndTelFormController.do" onclick="" style="color: white;">FindId</a></li>                  	
                      	 </ul>
                      	 </form>
                      	 <script type="text/javascript">
