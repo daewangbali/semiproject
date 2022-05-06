@@ -98,7 +98,26 @@ public class MemberDAO {
 		
 		return flag;
 	}
-
+	public boolean passwordcheck(String password, String id) throws SQLException {
+		boolean flag=false;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="SELECT COUNT(*) FROM SEMIMEMBER WHERE ID=? and password=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, password);
+			rs=pstmt.executeQuery();
+			if(rs.next()&&(rs.getInt(1)>0))
+			flag=true;
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		
+		return flag;
+	}
 	public MemberVO findIdByNameAndTel(String name, String tel) throws SQLException {
 		MemberVO vo=null;
 		Connection con=null;
