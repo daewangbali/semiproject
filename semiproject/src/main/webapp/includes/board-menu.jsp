@@ -4,11 +4,20 @@
 <br>
 <div>
 	<c:choose>
-		<c:when test="${bvo.postCategory=='소통'}">
+		<c:when test="${postCategory=='소통'}">
 			<div>
 			<img src="images/threeperson_logo.png" width="100" > &nbsp;
 			
                <a href="ListController.do?postCategory=소통" style="font-size: 1.5cm;text-decoration: none;color: black;align-items: flex-end;">소통게시판</a>
+               
+               <p class="mb-0"></p>
+            </div>
+		</c:when>
+		<c:when test="${postCategory=='두시'}">
+			<div>
+			<img src="images/2pm_logo.png" width="100" > &nbsp;
+			
+               <a href="ListController.do?postCategory=두시" style="font-size: 1.5cm;text-decoration: none;color: black;align-items: flex-end;">두시의 데이트</a>
                
                <p class="mb-0"></p>
             </div>
