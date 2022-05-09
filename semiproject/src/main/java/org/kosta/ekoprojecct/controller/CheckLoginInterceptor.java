@@ -19,9 +19,11 @@ public class CheckLoginInterceptor {
 	private CheckLoginInterceptor() {
 		//인터셉터가 생성되는 시점에 인증이 필요없는 컨트롤러명을 저장한다
 		permitAllList.add("CheckIdController");
-		permitAllList.add("FindMemberByIdController");
+		permitAllList.add("HomeController");
+		permitAllList.add("ListController");
 		permitAllList.add("LoginController");
-		permitAllList.add("RegisterMemberController");
+		permitAllList.add("CheckKostaNoController");
+		permitAllList.add("RegisterMemberFormController");
 	}
 	public static CheckLoginInterceptor getInstance() {
 		return instance;

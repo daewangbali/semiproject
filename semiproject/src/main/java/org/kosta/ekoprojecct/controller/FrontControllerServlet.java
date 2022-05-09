@@ -21,13 +21,13 @@ public class FrontControllerServlet extends HttpServlet {
 			String controllerName = uri.substring(request.getContextPath().length()+1,uri.length()-3);
 			
 			//인증체크 공통정책
-			/*
+			
 			boolean result = CheckLoginInterceptor.getInstance().checkLogin(request, controllerName);
 			if(result==false) {
 				response.sendRedirect("index.jsp");//로그인 필요함에도 비로그인 상태이므로 로그인 폼이 있는 index.jsp로 응답한다
 				return;//메서드 실행을 종료
 			}
-			*/
+			
 			
 			//추출한 컨트롤러명으로 HandlerMapping에 의뢰하여 개별 컨트롤러 객체를 상위 인터페이스 Controller 타입으로 반환
 			Controller controller = HandlerMapping.getInstance().create(controllerName);
