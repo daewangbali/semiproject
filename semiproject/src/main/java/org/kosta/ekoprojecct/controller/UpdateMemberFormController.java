@@ -4,8 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.kosta.ekoprojecct.model.MemberVO;
-
 public class UpdateMemberFormController implements Controller {
 
 	@Override

@@ -6,10 +6,10 @@ public class TestMemberDAO {
 	public static void main(String[] args) {
 		MemberDAO dao=MemberDAO.getInstance();
 		try {
-			System.out.println(dao.findIdByNameAndTel("감자깡", "01012345678"));
-		} catch(Exception e) {
-			
-		}
+			dao.deleteMember("java56","a");
+			System.out.println(dao.findIdByNameAndTel("java56", "01023"));
+	}catch(Exception e){
+		e.printStackTrace();
 	}
-	
+	}
 }
