@@ -8,6 +8,7 @@
 </div>
 <form action="DeleteMemberController.do" method="post" id="deleteForm">
 	<input type="password" id="password" name="password" placeholder="password" required="required" onkeyup="checkPasswordFunc()"><br>
+	<span id="id">${sessionScope.mvo.id }</span>
 	<span id="checkPassword"></span>
 	<input type="button" onclick="deleteForm">회원 탈퇴하기</button>
 </form>
