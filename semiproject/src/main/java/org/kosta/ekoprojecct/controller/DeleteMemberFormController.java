@@ -4,8 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.kosta.ekoprojecct.model.MemberVO;
-
 public class DeleteMemberFormController implements Controller {
 
 	@Override
@@ -13,7 +11,7 @@ public class DeleteMemberFormController implements Controller {
 		HttpSession session=request.getSession(false);
 		if(session==null||session.getAttribute("mvo")==null)
 			return "redirect:myPage.jsp";	
-		request.setAttribute("url", "mypage/delete-form.jsp");
+		request.setAttribute("url", "delete-form.jsp");
 		return "layout.jsp";
 	}
 }

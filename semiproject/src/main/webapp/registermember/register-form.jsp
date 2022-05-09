@@ -41,7 +41,8 @@
 	<span id="checkResult"></span><br>
 	<input type="text" name="name" placeholder="이름" required="required"><br>
 	<input type="password" name="password" placeholder="패스워드" required="required"><br>
-	<input type="text" name="tel" placeholder="전화번호" required="required"><br>
+	<input type="text" name="tel" id="memberTel"  placeholder="전화번호" required="required" onkeyup="checkTel()"><br>
+	<span id="checkTel"></span><br>
 	<input type="text" name="kostaNO" id="kostaNO" placeholder="기수" required="required" onkeyup="checkKostaNO()"><br>
 	<span id="checkKostaNO"></span>
 	<br>
@@ -50,16 +51,15 @@
 <script type="text/javascript">
 	let checkIdFlag=false;
 	let checkKostaNo=false;
+	let checkTelFlag=false;
 	
 	function register() {
-		if(checkIdFlag==false){
-			alert("아이디 중복확인하세요");
+		if(checkIdFlag==false){//중복된 아이디
+			//alert("아이디 중복확인하세요");
 		}else if(checkKostaNo==false){
 			alert("입력하신 KostaNo를 확인하세요");
 		}else{
-		//	alert(document.getElementById("registerForm"));
 			document.getElementById("registerForm").submit();
-		//	self.close();
 		}
 	}
 	function checkId() {
@@ -83,6 +83,24 @@
 			xhr.send();
 		}
 	}
+	function checkTel() {
+		checkTelFlag=false;
+		let memberTel=document.getElementById("memberTel").value;
+		let checkTel=document.getElementById("checkTel");
+		let xhr=new XMLHttpRequest();
+		xhr.onload = function(){
+			
+			if(xhr.responseText=="ok"){
+			checkTel.innerHTML="";
+			checkTelFlag=true;
+			}else{
+				checkTel.innerHTML="<font color=red>등록불가</font>";
+			}
+		}
+		xhr.open("get", "CheckTelController.do?tel="+memberTel);
+		xhr.send();
+	}
+	
 	
 	function checkKostaNO(){
 		let kostaNo = document.getElementById("kostaNO").value;
@@ -101,16 +119,6 @@
 		xhr.send();
 	}
 	
-	function closePopup(){
-		if(checkIdFlag==true){
-			alert("회원가입이 완료되었습니다!");
-			self.close();
-		}else{
-			return;
-		}
-		
-	}
-
 </script>
 
 </div>
