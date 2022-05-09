@@ -50,10 +50,10 @@
 			 <form id="updateForm" action="UpdatePostFormController.do" method="post">
 				<input type="hidden" name="no" value="${bvo.postNo}">
 			</form>
-				
+				<c:if test="${sessionScope.mvo.id == bvo.memberVO.id}">
 			 	<button onclick="deletePost()" type="button" class="btn btn-outline-danger">삭제</button>
 				<button onclick="updatePost()" type="button" class="btn btn-outline-warning">수정</button>
-					
+				</c:if>
 		</td>
 	</tr>
 	 <%--</c:if> --%>
