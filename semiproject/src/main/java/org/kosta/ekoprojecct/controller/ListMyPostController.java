@@ -25,12 +25,12 @@ public class ListMyPostController implements Controller {
 		request.setAttribute("pagination", pagination);
 		
 		String id = request.getParameter("id");
-		ArrayList<BoardVO> bvo= BoardDAO.getInstance().findPostByMyId(id, pagination); //이부분 수정하기!!!!
+		ArrayList<BoardVO> bvo= BoardDAO.getInstance().findPostByMyId(id, pagination); 
 		System.out.println(bvo);
 		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
 		
 		
-		list = BoardDAO.getInstance().findPostByMyId(id, pagination); //이부분 수정하기!!!!
+		list = BoardDAO.getInstance().findPostByMyId(id, pagination);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("url", "mypage/findpostbymyid.jsp");

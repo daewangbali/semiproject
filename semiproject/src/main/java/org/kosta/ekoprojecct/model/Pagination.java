@@ -9,14 +9,17 @@ public class Pagination {
 	 * 현재 페이지
 	 */
 	private int nowPage = 1;
+	
 	/**
 	 * 페이지당 게시물수
 	 */
 	private int postCountPerPage=5;
+	
 	/**
 	 * 페이지 그룹당 페이지수
 	 */
 	private int pageCountPerPageGroup=4;
+	
 	/**
 	 * 총게시물수( 데이터베이스에 저장되어 있는 )
 	 */
@@ -32,6 +35,8 @@ public class Pagination {
 	public int getNowPage() {
 		return nowPage;
 	}
+	
+	
 	/**
 	 * 현재 페이지 번호에(nowPage) 해당하는 게시물 리스트의 시작 row number를 반환 <br>
 	 * 이전 페이지 마지막 번호 + 1 <br>
@@ -45,6 +50,8 @@ public class Pagination {
 	public int getStartRowNumber() {
 		return (this.nowPage-1)*this.postCountPerPage+1;
 	}
+	
+	
 	/**
 	 * 현재 페이지 번호(nowPage)에 해당하는 게시물 리스트의 게시물 row의 마지막 번호를 반환 <br>
 	 * nowPage * postCountPerPage 의 연산 결과가 게시물의 마지막 번호이나 <br>
@@ -59,6 +66,8 @@ public class Pagination {
 		}
 		return endRowNumber;
 	}
+	
+	
 	/**
 	 * 총 페이지 수를 반환 <br>
 	 * 
@@ -75,6 +84,9 @@ public class Pagination {
 			totalPage += 1;
 		return totalPage;
 	}
+	
+	
+	
 	/**
 	 * 예)   총 게시물 수 48 개 <br>
 	 * getTotalPage() 총페이지수 / pageCountPerPageGroup -> 나머지가 0이면 나눈값이 총그룹수 <br>
@@ -89,6 +101,9 @@ public class Pagination {
 			totalPageGroup += 1;
 		return totalPageGroup;
 	}
+	
+	
+	
 	/**
 	 * 현재 페이지가 속한 페이지 그룹이 몇번째 그룹인지를 리턴 <br>
 	 * nowPage / pageCountPerPageGroup 값의 나머지가 0이면 나눈값이 현재 페이지 그룹
@@ -105,6 +120,8 @@ public class Pagination {
 			nowPageGroup += 1;
 		return nowPageGroup;
 	}
+	
+	
 	/**
 	 * 현재 페이지가 속한 그룹의 시작 페이지 번호를 반환 <br>
 	 * 
@@ -119,6 +136,8 @@ public class Pagination {
 	public int getStartPageOfPageGroup() {
 		return (getNowPageGroup()-1)*pageCountPerPageGroup+1;
 	}
+	
+	
 	/**
 	 * 현재 페이지 그룹의 마지막 번호를 리턴 <br>
 	 * 
@@ -136,6 +155,8 @@ public class Pagination {
 			endPage=getTotalPage();
 		return endPage;
 	}
+	
+	
 	/**
 	 * 이전 페이지 그룹이 존재하는지 여부를 리턴 <br>
 	 * getNowpageGroup()이 1보다 크면 이전 페이지 그룹이 존재  <br>
@@ -148,12 +169,15 @@ public class Pagination {
 			flag=true;
 		return flag;
 	}
+	
+	
 	/**
 	 * 다음 페이지 그룹이 존재하는지 여부를 리턴 <br>
 	 * getTotalPageGroup 보다 getNowPageGroup이 작으면 다음 페이지 그룹이 존재
 	 * 
 	 * @return flag
 	 */
+	
 	public boolean isNextPageGroup() {
 		boolean flag = false;
 		if(getTotalPageGroup()>getNowPageGroup())
@@ -162,8 +186,6 @@ public class Pagination {
 	}
 	
 }
-
-
 
 
 

@@ -45,23 +45,22 @@
 	</tbody>
 </table>
 
-
 <ul class="pagination justify-content-center" style="margin:20px 0">
  <c:if test="${pagination.previousPageGroup}">
- 	<li class="page-item"><a class="page-link" href="ListMyPostController.do?pageNo=${pagination.startPageOfPageGroup-1 }&id=${sessionScope.mvo.id}">Previous</a></li>
+ 	<li class="page-item"><a class="page-link" href="SearchListByFilterAndWord.do?pageNo=${pagination.startPageOfPageGroup-1 }&filter=name&word=${param.word}">Previous</a></li>
  </c:if>
  <c:forEach begin="${pagination.startPageOfPageGroup}" end="${pagination.endPageOfPageGroup}" var="page">
  <c:choose>
  	<c:when test="${page==pagination.nowPage}">
- 		<li class="page-item active"><a class="page-link" href="ListMyPostController.do?pageNo=${page}&id=${sessionScope.mvo.id}">${page}</a></li>
+ 		<li class="page-item active"><a class="page-link" href="SearchListByFilterAndWord.do?pageNo=${page}&filter=name&word=${param.word}">${page}</a></li>
  	</c:when>
  	<c:otherwise>
-  		<li class="page-item"><a class="page-link" href="ListMyPostController.do?pageNo=${page}&id=${sessionScope.mvo.id}">${page}</a></li>
+  		<li class="page-item"><a class="page-link" href="SearchListByFilterAndWord.do?pageNo=${page}&filter=name&word=${param.word}">${page}</a></li>
  	</c:otherwise>
  </c:choose>
  </c:forEach>
  <c:if test="${pagination.nextPageGroup}">
- 	<li class="page-item"><a class="page-link" href="ListMyPostController.do?pageNo=${pagination.endPageOfPageGroup+1 }&id=${sessionScope.mvo.id}">Next</a></li>
+ 	<li class="page-item"><a class="page-link" href="SearchListByFilterAndWord.do?pageNo=${pagination.endPageOfPageGroup+1 }&filter=name&word=${param.word}">Next</a></li>
  </c:if>
 </ul>
 

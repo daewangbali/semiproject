@@ -49,7 +49,7 @@
 
 <ul class="pagination justify-content-center" style="margin:20px 0">
  <c:if test="${pagination.previousPageGroup}">
- 	<li class="page-item"><a class="page-link" href="ListController.do?pageNo=${pagination.startPageOfPageGroup-1 }">Previous</a></li>
+ 	<li class="page-item"><a class="page-link" href="ListController.do?pageNo=${pagination.startPageOfPageGroup-1 }&postCategory=${postCategory}">Previous</a></li>
  </c:if>
  <c:forEach begin="${pagination.startPageOfPageGroup}" end="${pagination.endPageOfPageGroup}" var="page">
  <c:choose>
@@ -62,14 +62,27 @@
  </c:choose>
  </c:forEach>
  <c:if test="${pagination.nextPageGroup}">
- 	<li class="page-item"><a class="page-link" href="ListController.do?pageNo=${pagination.endPageOfPageGroup+1 }">Next</a></li>
+ 	<li class="page-item"><a class="page-link" href="ListController.do?pageNo=${pagination.endPageOfPageGroup+1 }&postCategory=${postCategory}">Next</a></li>
  </c:if>
 </ul>
 <%-- 로그인되어 있을 때만 글쓰기 버튼 활성화 --%>
 <br>
+
+
+
+
+<%-- --%>
 <c:if test="${sessionScope.mvo!=null}">
-<button onclick="location.href ='WritePostFormController.do?postCategory=${postCategory}'" type="button" class="btn btn-warning" style="float: right;color: white;">글쓰기</button>
+<c:choose>
+	<c:when test="${postCategory == '소통' && postCategory == '자유'}">
+		<button onclick="location.href ='WritePostFormController.do?postCategory=${postCategory}'" type="button" class="btn btn-warning" style="float: right;color: white;">글쓰기</button>
+	</c:when>
+	<c:otherwise>
+		<button onclick="location.href ='DusiWritePostFormController.do?postCategory=${postCategory}'" type="button" class="btn btn-warning" style="float: right;color: white;">글쓰기</button>
+	</c:otherwise>
+</c:choose>
 </c:if>
+
 <br>
 </div>
 <br>
