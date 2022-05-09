@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.kosta.ekoprojecct.controller.Controller;
-import org.kosta.ekoprojecct.controller.DusiWritePostController;
 import org.kosta.ekoprojecct.model.BoardDAO;
 import org.kosta.ekoprojecct.model.BoardVO;
 import org.kosta.ekoprojecct.model.Pagination;
@@ -26,11 +24,10 @@ public class DusiListController implements Controller {
 		list = BoardDAO.getInstance().findPostList("두시",pagination);
 		
 		for(int i=0;i<list.size();i++) {
-			if(list.get(i).getYoutubeLink()==null) {
-				break;
-			}else {
+			if(list.get(i).getYoutubeLink()!=null)
 				list.get(i).setYoutubeLink(list.get(i).getYoutubeLink().substring(17));
-			}
+			else
+				break;
 		}
 		request.setAttribute("list", list);
 		request.setAttribute("url", "board/dusi-list.jsp");
