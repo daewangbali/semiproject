@@ -13,7 +13,7 @@ public class DeleteMemberFormController implements Controller {
 		HttpSession session=request.getSession(false);
 		if(session==null||session.getAttribute("mvo")==null)
 			return "redirect:myPage.jsp";	
-		request.setAttribute("url", "delete-form.jsp");
+		request.setAttribute("url", "mypage/delete-form.jsp");
 		return "layout.jsp";
 	}
 }

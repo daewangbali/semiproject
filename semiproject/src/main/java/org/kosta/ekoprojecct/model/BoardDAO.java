@@ -43,6 +43,7 @@ public class BoardDAO {
 			sql.append("AND b.postCategory=? ");
 			sql.append("ORDER BY b.postNo desc ");
 			*/
+			//paging을 위해 rnum 생성
 			sql.append("SELECT rnum, postNo, postTitle,id, postDate, postCategory, hits ");
 			sql.append("FROM(SELECT ROW_NUMBER() OVER(ORDER BY postno DESC) as rnum, postno, posttitle, to_char(postdate,'yyyy.mm.dd') as postDate, hits, id, postCategory FROM semiboard WHERE postCategory=?) ");
 			sql.append("WHERE rnum between ? and ?");
@@ -67,7 +68,8 @@ public class BoardDAO {
 			closeAll(rs, pstmt, con);
 		}
 		return list;
-	}	
+	}
+	
 	public int getTotalPostCount() throws SQLException{
 		int totalPostCount=0;
 		Connection con=null;
@@ -85,6 +87,59 @@ public class BoardDAO {
 		}
 		return totalPostCount;
 	}
+	
+	//Search List By Filter부분 paging 할 때 사용했음
+	public int getTotalPostCountByFilter(String filter, String word) throws SQLException{
+		int totalPostCountByFilter=0;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select count(*) ");
+			sql.append("from SemiBoard b , SemiMember m ");
+			sql.append("where m.id = b.id ");
+			if (filter.equals("name")) {
+				sql.append("and b.postTitle LIKE '%' || ? || '%'");
+			} else if (filter.equals("content")) {
+				sql.append("and b.postContent LIKE '%' || ? || '%'");
+			}
+			pstmt = con.prepareStatement(sql.toString());
+			//pstmt.setString(1, filter);
+			pstmt.setString(1, word);
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				totalPostCountByFilter=rs.getInt(1);
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalPostCountByFilter;
+	}
+	
+	//getTotalPostCountByCategory(String postCategory)는 자유, 소통, 두시 게시판에서 사용. 
+	//SELECT COUNT(*) FROM SemiBoard WHERE postCategory=? 부분을 추가하였음. 
+	public int getTotalPostCountByCategory(String postCategory) throws SQLException{
+		int totalPostCountByCategory=0;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="SELECT COUNT(*) FROM SemiBoard WHERE postCategory=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, postCategory);
+			rs=pstmt.executeQuery();
+			if(rs.next())
+				totalPostCountByCategory=rs.getInt(1);
+				
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return totalPostCountByCategory;
+	} 
+	 
+	
 	public BoardVO postDetail(int no) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -110,6 +165,58 @@ public class BoardDAO {
 		}
 		return bvo;
 	}
+	//게시물 삭제
+	public void deletePost(int no) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "delete from SemiBoard where postno = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}
+	}
+	//게시물 작성
+	public void posting(BoardVO bvo) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "insert into semiboard(postNo,postTitle,postContent,postDate,postCategory,id,youtubelink) values(SemiBoard_seq.nextval,?,?,sysdate,?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bvo.getPostTitle());
+			pstmt.setString(2, bvo.getPostContent());
+			pstmt.setString(3, bvo.getPostCategory());
+			pstmt.setString(4, bvo.getMemberVO().getId());
+			pstmt.setString(5, bvo.getYoutubeLink());
+			pstmt.executeUpdate();
+			
+		}finally {
+			closeAll(pstmt, con);
+		}
+		
+	}
+	//게시물 수정
+	public void updatePost(BoardVO bvo) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			String sql = "update SemiBoard set posttitle=?, postcontent=? where postno=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bvo.getPostTitle());
+			pstmt.setString(2, bvo.getPostContent());
+			pstmt.setInt(3, bvo.getPostNo());
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}
+	}
+	
+	
 	public void updateHits(int postNo) throws SQLException{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -123,7 +230,7 @@ public class BoardDAO {
 			closeAll(pstmt, con);
 		}
 	}
-	
+	/*
 	public ArrayList<BoardVO> findPostByFilterAndWord(String filter, String word) throws SQLException {
 		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
 		Connection con = dataSource.getConnection();
@@ -134,16 +241,15 @@ public class BoardDAO {
 			System.out.println(filter);
 			System.out.println(word);
 			StringBuilder sql = new StringBuilder();
+			
 			sql.append("select b.postNo, b.postTitle, b.postDate, b.postCategory, b.hits , m.name, m.id ");
 			sql.append("from SemiBoard b , semimember m ");
 			sql.append("where m.id = b.id ");
-			
 			if (filter.equals("name")) {
 				sql.append("and b.postTitle LIKE '%' || ? || '%'");
 			} else if (filter.equals("content")) {
 				sql.append("and b.postContent LIKE '%' || ? || '%'");
 			}
-			
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, word);
 			rs = pstmt.executeQuery();
@@ -158,6 +264,83 @@ public class BoardDAO {
 			closeAll(rs, pstmt, con);
 		}
 
+		return list;
+	}
+	*/
+	 //pagination 추가
+	 public ArrayList<BoardVO> findPostByFilterAndWord(String filter, String word, Pagination pagination) throws SQLException {
+		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+		Connection con = dataSource.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			System.out.println(filter);
+			System.out.println(word);
+			StringBuilder sql = new StringBuilder();
+			
+			//paging 하기 위해서 sql문 수정 -> if문 구조 변경, rnum 생성
+			sql.append("SELECT rnum, postNo, postTitle,id, postDate, postCategory, hits ");
+			
+			sql.append("FROM(SELECT ROW_NUMBER() OVER(ORDER BY postno DESC) as rnum, b.postNo, b.postTitle, b.postDate, b.postCategory, b.hits , m.name, m.id ");
+			sql.append("from SemiBoard b , semimember m ");
+			sql.append("where m.id = b.id ");
+			if (filter.equals("name")) {
+				sql.append("and b.postTitle LIKE '%' || ? || '%') ");
+				sql.append("WHERE rnum between ? and ? ");
+			} else if (filter.equals("content")) {
+				sql.append("and b.postContent LIKE '%' || ? || '%') ");
+				sql.append("WHERE rnum between ? and ? ");
+			}
+			
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, word);
+			pstmt.setInt(2, pagination.getStartRowNumber());
+			pstmt.setInt(3, pagination.getEndRowNumber());
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				MemberVO mvo = new MemberVO(rs.getString("id"));
+				list.add(new BoardVO(rs.getInt("postNo"), rs.getString("postTitle"), rs.getString("postDate"),
+						rs.getString("postCategory"), rs.getInt("hits"), mvo));
+			}
+
+		} finally {
+			closeAll(rs, pstmt, con);
+		}
+
+		return list;
+	}
+	
+	public ArrayList<BoardVO> findPostByMyId(String id, Pagination pagination) throws SQLException {
+		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+		Connection con = dataSource.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT rnum, postNo, postTitle,id, postDate, postCategory, hits ");
+			sql.append("FROM(SELECT ROW_NUMBER() OVER(ORDER BY postno DESC) as rnum, postno, posttitle, to_char(postdate,'yyyy.mm.dd') as postDate, hits, id, postCategory FROM semiboard WHERE id=?) ");
+			sql.append("WHERE rnum between ? and ? ");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, id);
+			pstmt.setInt(2, pagination.getStartRowNumber());
+			pstmt.setInt(3, pagination.getEndRowNumber());
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				MemberVO memberVO=new MemberVO();
+				memberVO.setId(rs.getString("id"));
+				BoardVO boardVO=new BoardVO();
+				boardVO.setPostNo(rs.getInt("postNo"));
+				boardVO.setPostTitle(rs.getString("postTitle"));
+				boardVO.setHits(rs.getInt("hits"));
+				boardVO.setPostDate(rs.getString("postDate"));
+				boardVO.setMemberVO(memberVO);
+				list.add(boardVO);
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
 		return list;
 	}
 }

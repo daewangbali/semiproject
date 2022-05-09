@@ -11,7 +11,7 @@ public class UpdateMemberFormController implements Controller {
 		HttpSession session=request.getSession(false);
 		if(session==null||session.getAttribute("mvo")==null)
 			return "redirect:myPage.jsp";	
-		request.setAttribute("url", "update-form.jsp");
+		request.setAttribute("url", "mypage/update-form.jsp");
 		return "layout.jsp";
 	}
 }
