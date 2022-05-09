@@ -26,7 +26,11 @@ public class DusiListController implements Controller {
 		list = BoardDAO.getInstance().findPostList("두시",pagination);
 		
 		for(int i=0;i<list.size();i++) {
-			list.get(i).setYoutubeLink(list.get(i).getYoutubeLink().substring(17));
+			if(list.get(i).getYoutubeLink()==null) {
+				break;
+			}else {
+				list.get(i).setYoutubeLink(list.get(i).getYoutubeLink().substring(17));
+			}
 		}
 		request.setAttribute("list", list);
 		request.setAttribute("url", "board/dusi-list.jsp");
