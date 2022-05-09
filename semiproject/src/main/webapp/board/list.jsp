@@ -73,14 +73,9 @@
 
 <%-- --%>
 <c:if test="${sessionScope.mvo!=null}">
-<c:choose>
-	<c:when test="${postCategory == '소통' && postCategory == '자유'}">
-		<button onclick="location.href ='WritePostFormController.do?postCategory=${postCategory}'" type="button" class="btn btn-warning" style="float: right;color: white;">글쓰기</button>
-	</c:when>
-	<c:otherwise>
-		<button onclick="location.href ='DusiWritePostFormController.do?postCategory=${postCategory}'" type="button" class="btn btn-warning" style="float: right;color: white;">글쓰기</button>
-	</c:otherwise>
-</c:choose>
+<button onclick="location.href ='WritePostFormController.do?postCategory=${postCategory}'" type="button" class="btn btn-warning" style="float: right;color: white;">글쓰기</button>
+
+
 </c:if>
 
 <br>
