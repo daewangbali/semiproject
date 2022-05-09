@@ -98,7 +98,26 @@ public class MemberDAO {
 		
 		return flag;
 	}
-	public boolean passwordcheck(String password, String id) throws SQLException {
+	public boolean telcheck(String tel) throws SQLException {
+		boolean flag=false;
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			String sql="SELECT COUNT(*) FROM SemiMEMBER WHERE tel=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, tel);
+			rs=pstmt.executeQuery();
+			if(rs.next()&&(rs.getInt(1)>0))
+			flag=true;
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		
+		return flag;
+	}
+	public boolean passwordcheck(String id, String password) throws SQLException {
 		boolean flag=false;
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -156,18 +175,19 @@ public class MemberDAO {
 		}	
 	}
 
-	public void deleteMember(String id) throws Exception{
+	public void deleteMember(String id,String password) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=dataSource.getConnection();
-			String sql="DELETE FROM SEMIMEMBER WHERE id=?";
+			String sql="DELETE FROM SEMIMEMBER WHERE id=? AND password=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
+			pstmt.setString(2, password);
 			pstmt.executeUpdate();
 		}finally {
 			closeAll(pstmt, con);		
 		}	
-		System.out.println("db에 "+id+" 정보 삭제");
+	//	System.out.println("db에 "+vo+" 정보 삭제");
 	}
 }
