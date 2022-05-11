@@ -52,26 +52,26 @@
 	</table>
 	
 	<table class="table" >
-	<tr>
 	<c:forEach items="${requestScope.commentList }" var="list">
-	 	<td width="45%">${list.commentContent }</td>
+	<tr>
+	 	<td width="80%">${list.commentContent }</td>
 	 	
-		<td width="45%">${list.memberVO.id}님</td>
+		<td width="20%">${list.memberVO.id}님</td>
 		<td width="10%">${list.commentDate}</td>
 		<c:if test="${list.memberVO.id==sessionScope.mvo.id }">
 		<td><input type="button" onclick="updateComment(${list.commentNo}, ${bvo.postNo })" value="수정"></td>
 		</c:if>
+	</tr> 
 	</c:forEach>
-	</tr>
 	<tr>
-		<td >
+		<td width="90%">
 			<form action="RegisterCommentController.do" id="registerCommentForm" method="post">
 				<input type="hidden" name="no" value="${bvo.postNo}">
 				<input type="hidden" name="writerId" value="${sessionScope.mvo.id}">
 				<input type="text" name="commentContent" placeholder="댓글입력" style="width:90%">
 			</form>
 		</td>
-		<td width="10%">
+		<td width="10%" align="right">
 			<button onclick="registerComment()" type="button" class="btn btn-warning">댓글 작성</button>
 		</td>
 		
