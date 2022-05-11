@@ -10,6 +10,7 @@ import org.kosta.ekoprojecct.model.BoardDAO;
 import org.kosta.ekoprojecct.model.BoardVO;
 import org.kosta.ekoprojecct.model.CommentDAO;
 import org.kosta.ekoprojecct.model.CommentVO;
+import org.kosta.ekoprojecct.model.MemberVO;
 
 public class PostDetailController implements Controller {
 
@@ -26,6 +27,23 @@ public class PostDetailController implements Controller {
 			BoardDAO.getInstance().updateHits(no);
 			myboardNoList.add(Integer.toString(no));
 		}
+		
+		//좋아요
+		MemberVO mvo = (MemberVO) session.getAttribute("mvo");
+		boolean flag = BoardDAO.getInstance().checkLike(mvo.getId(),no);
+		request.setAttribute("flag", flag);
+		
+		//좋아요수
+		int likeNumber = BoardDAO.getInstance().likeNumber(no);
+		request.setAttribute("likeNumber", likeNumber);
+		
+		String src = null;
+		if(flag==true) {
+			src = "images/fullheart.png";
+		}else {
+			src = "images/emptyheart.png";
+		}
+		request.setAttribute("src", src);
 		
 		//조회수 증가
 		//BoardDAO.getInstance().updateHits(no);

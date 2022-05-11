@@ -15,13 +15,22 @@ public class UpdatePostController implements Controller {
 		if(request.getMethod().equals("POST")==false)//POST 요청방식이 아니면
 			throw new ServletException(getClass().getName()+"POST 방식만 서비스 가능합니다");
 	
+		String viewName = null;
+		String postCategory = request.getParameter("postCategory");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		int no = Integer.parseInt(request.getParameter("no"));
 		BoardVO bvo = new BoardVO(no,title,content);
 		BoardDAO.getInstance().updatePost(bvo);
 		request.setAttribute("no", no);
-		return "PostDetailController.do";
+		
+		if(postCategory.equals("두시")) {
+			viewName = "DusiDetailController.do";
+		}else {
+			viewName = "PostDetailController.do";
+		}
+		
+		return viewName;
 	}
 
 }

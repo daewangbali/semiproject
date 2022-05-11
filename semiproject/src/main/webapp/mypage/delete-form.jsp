@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../includes/mypage-list.jsp"%>
 <div align="center">
 <br><br>
 <span id="originalSentence">${sessionScope.mvo.name } 본인은 회원탈퇴를 진행하겠습니다.</span><br>
@@ -36,3 +37,5 @@
 	}
 </script>
 </div>
+<br>
+<br>

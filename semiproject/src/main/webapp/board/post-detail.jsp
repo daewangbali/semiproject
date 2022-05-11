@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- 상세 게시글 보기 화면 --%>
+
 <br>
 <div>
 	<c:choose>
@@ -40,50 +41,56 @@
 		</td>
 	</tr>
 	 <%--<c:if test="${sessionScope.mvo.id==bvo.memberVO.id }"> --%>
-	 <c:forEach items="${requestScope.commentList }" var="list">
-	 <tr>
-	 	<td width="45%"><mark style="background-color: #fff099">${list.commentContent }</mark> </td>
-	 	<td><span id="${list.commentNo }"></span></td>
-		<td width="45%"><mark style="background-color: #fff099">${list.memberVO.id}님</mark> </td>
-		<td width="10%"><mark style="background-color: #fff099">${list.commentDate}</mark> </td>
+	 
+	<tr>
+		<td colspan="5" class="text-center">
+			<input type="hidden" id="flag" name="flag" value="${flag}">
+			<img id="heart" src="${src}" style="width: 1cm;float: left;"  onclick="likePost();"/>
+			<p style="float: left">&nbsp;${likeNumber}개</p>
+		</td>
+	</tr>
+	</table>
+	
+	<table class="table" >
+	<tr>
+	<c:forEach items="${requestScope.commentList }" var="list">
+	 	<td width="45%">${list.commentContent }</td>
+	 	
+		<td width="45%">${list.memberVO.id}님</td>
+		<td width="10%">${list.commentDate}</td>
 		<c:if test="${list.memberVO.id==sessionScope.mvo.id }">
 		<td><input type="button" onclick="updateComment(${list.commentNo}, ${bvo.postNo })" value="수정"></td>
 		</c:if>
-	</tr>
 	</c:forEach>
+	</tr>
 	<tr>
-		
-		<td colspan="5" class="text-center">
-			<form id="deleteForm" action="DeletePostController.do" method="post">
+		<td >
+			<form action="RegisterCommentController.do" id="registerCommentForm" method="post">
 				<input type="hidden" name="no" value="${bvo.postNo}">
+				<input type="hidden" name="writerId" value="${sessionScope.mvo.id}">
+				<input type="text" name="commentContent" placeholder="댓글입력" style="width:90%">
+			</form>
+		</td>
+		<td width="10%">
+			<button onclick="registerComment()" type="button" class="btn btn-warning">댓글 작성</button>
+		</td>
+		
+	</tr>
+	</table>
+	<div align="center">
+		<form id="deleteForm" action="DeletePostController.do" method="post">
+				<input type="hidden" id="no" name="no" value="${bvo.postNo}">
 				<input type="hidden" name="postCategory" value="${bvo.postCategory}">
-				
 			</form> 
 			 <form id="updateForm" action="UpdatePostFormController.do" method="post">
 				<input type="hidden" name="no" value="${bvo.postNo}">
-				
 			</form>
 				<c:if test="${sessionScope.mvo.id == bvo.memberVO.id}">
+			 	<button onclick="deletePost()" type="button" class="btn btn-outline-danger">삭제</button>
 				<button onclick="updatePost()" type="button" class="btn btn-outline-warning">수정</button>
 				</c:if>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<form action="RegisterCommentController.do" id="registerCommentForm" method="post">
-			<input type="hidden" name="no" value="${bvo.postNo}">
-			<input type="hidden" name="writerId" value="${sessionScope.mvo.id}">
-			<input type="text" name="commentContent" placeholder="댓글입력" style="width:800px">
-			<input type="text" name="" id="commentUpdateForm" style="width:800px" hidden>
-			</form>
-		</td>
-		<td>
-			<button onclick="registerComment()" type="button" class="btn btn-outline-warning">댓글 작성</button>
-		</td>
-	</tr>
-	
-	
-</table>
+	</div>
+	<br>
 
 <script type="text/javascript">
 	function deletePost() {
@@ -104,6 +111,22 @@
 	
 	function updateComment(commentNo, postNo){
 		window.open("UpdateCommentFormController.do?commentNo="+commentNo+"&postNo="+postNo, "join", "width=300, height=150, left=100, top=50");
+	}
+	function likePost() {
+		let flag = document.getElementById("flag").value;
+		let no = document.getElementById("no").value;
+		
+		let xhr = new XMLHttpRequest();
+		xhr.onload=function(){
+			if(xhr.responseText == "ok"){
+				document.getElementById("heart").src = "images/fullheart.png";
+			}else{
+				document.getElementById("heart").src = "images/emptyheart.png";	
+			}
+		}
+		window.location.reload;
+		xhr.open("get","LikeController.do?flag="+flag+"&no="+no);
+		xhr.send();
 	}
 </script>
 	

@@ -343,6 +343,139 @@ public class BoardDAO {
 		}
 		return list;
 	}
+	public void like(MemberVO mvo, int no) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			String sql ="Insert into SemiLike(id,postNo) values(?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mvo.getId());
+			pstmt.setInt(2, no);
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}
+	}
+	public void cancelLike(MemberVO mvo, int no) throws SQLException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = dataSource.getConnection();
+			String sql ="delete from SemiLike where id = ? and postNo = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mvo.getId());
+			pstmt.setInt(2, no);
+			pstmt.executeUpdate();
+		}finally {
+			closeAll(pstmt, con);
+		}
+	}
+	
+	public boolean checkLike(String id, int no) throws SQLException {
+		Connection con = dataSource.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean flag = false;
+		try {
+			String sql = "select count(*) from semilike where id = ? and postno = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, no);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				if(rs.getInt(1)==1) {
+					flag = true;
+				}
+				
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return flag;
+		
+	}
+	public int likeNumber(int no) throws SQLException {
+		Connection con = dataSource.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int likes = 0;
+		try {
+			String sql = "select count(*) from semilike where postno = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				likes = rs.getInt(1);
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return likes;
+	}
+	
+	public ArrayList<BoardVO> findLikePostList(MemberVO mvo) throws SQLException {
+		ArrayList<BoardVO> list=new ArrayList<BoardVO>();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			StringBuilder sql=new StringBuilder();
+			sql.append("select b.postNo, b.postTitle, b.postDate, b.postCategory, b.hits ");
+			sql.append("from SEMIBOARD b, semilike l ");
+			sql.append("where b.postno = l.postno and l.id = ?");
+			pstmt=con.prepareStatement(sql.toString());
+			pstmt.setString(1, mvo.getId());
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				BoardVO boardVO=new BoardVO();
+				boardVO.setPostNo(rs.getInt(1));
+				boardVO.setPostTitle(rs.getString(2));
+				boardVO.setPostDate(rs.getString(3));
+				boardVO.setPostCategory(rs.getString(4));
+				boardVO.setHits(rs.getInt(5));
+				boardVO.setMemberVO(mvo);
+				list.add(boardVO);
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return list;
+	}
+	
+	//두시게시판용 findlist
+	public ArrayList<BoardVO> findDusiPostList() throws SQLException {
+		ArrayList<BoardVO> list=new ArrayList<BoardVO>();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=dataSource.getConnection();
+			String sql = "select postNo, postTitle, id, postDate, postCategory, hits, youtubelink from SEMIBOARD where postCategory = ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "두시");
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				MemberVO memberVO=new MemberVO();
+				memberVO.setId(rs.getString("id"));
+				BoardVO boardVO=new BoardVO();
+				boardVO.setPostNo(rs.getInt("postNo"));
+				boardVO.setPostTitle(rs.getString("postTitle"));
+				boardVO.setHits(rs.getInt("hits"));
+				boardVO.setPostCategory(rs.getString("postCategory"));
+				boardVO.setPostDate(rs.getString("postDate"));
+				boardVO.setYoutubeLink(rs.getString("youtubelink"));//추가
+				boardVO.setMemberVO(memberVO);
+				list.add(boardVO);
+			}
+		}finally {
+			closeAll(rs, pstmt, con);
+		}
+		return list;
+	}
+
+	
 }
 
 

@@ -4,26 +4,12 @@
 <%-- 상세 게시글 보기 화면 --%>
 <br>
 <div>
-	<c:choose>
-		<c:when test="${bvo.postCategory=='소통'}">
-			<div>
-			<img src="images/threeperson_logo.png" width="100" > &nbsp;
-			
-               <a href="ListController.do?postCategory=소통" style="font-size: 1.5cm;text-decoration: none;color: black;align-items: flex-end;">소통게시판</a>
-               
-               <p class="mb-0"></p>
-            </div>
-		</c:when>
-		<c:otherwise>
-			<div>
-			<img src="images/free_logo.png" width="100" > &nbsp;
-			
-               <a href="ListController.do?postCategory=자유" style="font-size: 1.5cm;text-decoration: none;color: black;align-items: flex-end;">자유게시판</a>
-               
-               <p class="mb-0"></p>
-            </div>
-		</c:otherwise>
-	</c:choose>
+	<div>
+		<img src="images/2pm_logo.png" width="100" > &nbsp;
+		<a href="DusiListController.do" style="font-size: 1.5cm;text-decoration: none;color: black;align-items: flex-end;">두시의 데이트</a>
+        <p class="mb-0"></p>
+	</div>
+		
 </div>
 <br>
 <table class="table ">
@@ -54,6 +40,7 @@
 			</form> 
 			 <form id="updateForm" action="UpdatePostFormController.do" method="post">
 				<input type="hidden" name="no" value="${bvo.postNo}">
+				<input type="hidden" name="postCategory" value="${bvo.postCategory}">
 			</form>
 				<c:if test="${sessionScope.mvo.id == bvo.memberVO.id}">
 			 	<button onclick="deletePost()" type="button" class="btn btn-outline-danger">삭제</button>
@@ -79,9 +66,3 @@
 	}
 </script>
 	
-
-
-
-
-
-

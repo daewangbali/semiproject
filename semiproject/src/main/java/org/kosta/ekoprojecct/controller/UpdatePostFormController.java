@@ -12,8 +12,15 @@ public class UpdatePostFormController implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int no = Integer.parseInt(request.getParameter("no"));
 		BoardVO bvo =  BoardDAO.getInstance().postDetail(no);
+		String postCategory = request.getParameter("postCategory");
+		
+		if(postCategory.equals("소통") || postCategory.equals("자유")) {
+			request.setAttribute("url", "board/update.jsp");
+		}else {
+			request.setAttribute("url", "board/dusi-update.jsp");
+		}
 		request.setAttribute("bvo", bvo);
-		request.setAttribute("url", "board/update.jsp");
+		
 		return "layout.jsp";
 	}
 

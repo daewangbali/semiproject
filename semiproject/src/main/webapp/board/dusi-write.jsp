@@ -27,11 +27,7 @@
 			<textarea rows="10" class="form-control" name="content" placeholder="본문내용" required="required"></textarea>
 		</td>
 	</tr>
-	<tr>
-		<td>
-			<input type="file" name="fileName">
-		</td>
-	</tr>
+	
 
 </table>
 <div class="text-center">

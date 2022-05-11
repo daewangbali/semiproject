@@ -13,15 +13,9 @@ public class DusiListController implements Controller {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//request.setAttribute("dusiList", DusiWritePostController.dusiList);
-		String pageNo=request.getParameter("pageNo");
-		Pagination pagination=null;
-		if(pageNo==null) //클라이언트가 pageNo를 전달하지 않는 경우에는 첫 페이지를 보여준다
-			pagination=new Pagination(BoardDAO.getInstance().getTotalPostCountByCategory("두시"));
-		else
-			pagination=new Pagination(BoardDAO.getInstance().getTotalPostCountByCategory("두시"), Integer.parseInt(pageNo));
 		
 		ArrayList<BoardVO> list =  new ArrayList<BoardVO>();
-		list = BoardDAO.getInstance().findPostList("두시",pagination);
+		list = BoardDAO.getInstance().findDusiPostList();
 		
 		for(int i=0;i<list.size();i++) {
 			if(list.get(i).getYoutubeLink()!=null)
