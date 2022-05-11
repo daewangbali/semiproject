@@ -5,9 +5,15 @@ public class CommentVO {
 	private String commentContent;
 	private String commentDate;
 	private BoardVO boardVO;
-	
+	private MemberVO memberVO;
+
 	public CommentVO() {
 		super();
+	}
+	
+	public CommentVO(String commentContent) {
+		super();
+		this.commentContent = commentContent;
 	}
 
 	public int getCommentNo() {
@@ -32,6 +38,22 @@ public class CommentVO {
 
 	public void setCommentDate(String commentDate) {
 		this.commentDate = commentDate;
+	}
+
+	public BoardVO getBoardVO() {
+		return boardVO;
+	}
+
+	public void setBoardVO(BoardVO boardVO) {
+		this.boardVO = boardVO;
+	}
+
+	public MemberVO getMemberVO() {
+		return memberVO;
+	}
+
+	public void setMemberVO(MemberVO memberVO) {
+		this.memberVO = memberVO;
 	}
 
 	@Override

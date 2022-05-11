@@ -28,6 +28,12 @@ public class MemberVO implements Serializable {
 		super();
 		this.id = id;
 	}
+	
+	public MemberVO(String id, String kostaNO) {
+		super();
+		this.id = id;
+		this.kostaNO = kostaNO;
+	}
 
 	public String getId() {
 		return id;

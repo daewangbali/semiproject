@@ -40,23 +40,47 @@
 		</td>
 	</tr>
 	 <%--<c:if test="${sessionScope.mvo.id==bvo.memberVO.id }"> --%>
+	 <c:forEach items="${requestScope.commentList }" var="list">
+	 <tr>
+	 	<td width="45%"><mark style="background-color: #fff099">${list.commentContent }</mark> </td>
+	 	<td><span id="${list.commentNo }"></span></td>
+		<td width="45%"><mark style="background-color: #fff099">${list.memberVO.id}님</mark> </td>
+		<td width="10%"><mark style="background-color: #fff099">${list.commentDate}</mark> </td>
+		<c:if test="${list.memberVO.id==sessionScope.mvo.id }">
+		<td><input type="button" onclick="updateComment(${list.commentNo})" value="수정"></td>
+		</c:if>
+	</tr>
+	</c:forEach>
 	<tr>
 		
 		<td colspan="5" class="text-center">
 			<form id="deleteForm" action="DeletePostController.do" method="post">
 				<input type="hidden" name="no" value="${bvo.postNo}">
 				<input type="hidden" name="postCategory" value="${bvo.postCategory}">
+				
 			</form> 
 			 <form id="updateForm" action="UpdatePostFormController.do" method="post">
 				<input type="hidden" name="no" value="${bvo.postNo}">
-			</form>
 				
-			 	<button onclick="deletePost()" type="button" class="btn btn-outline-danger">삭제</button>
+			</form>
+				<c:if test="${sessionScope.mvo.id == bvo.memberVO.id}">
 				<button onclick="updatePost()" type="button" class="btn btn-outline-warning">수정</button>
-					
+				</c:if>
 		</td>
 	</tr>
-	 <%--</c:if> --%>
+	<tr>
+		<td>
+			<form action="RegisterCommentController.do" id="registerCommentForm" method="post">
+			<input type="hidden" name="no" value="${bvo.postNo}">
+			<input type="hidden" name="writerId" value="${sessionScope.mvo.id}">
+			<input type="text" name="commentContent" placeholder="댓글입력" style="width:800px">
+			<input type="text" name="" id="commentUpdateForm" style="width:800px" hidden>
+			</form>
+		</td>
+		<td>
+			<button onclick="registerComment()" type="button" class="btn btn-outline-warning">댓글 작성</button>
+		</td>
+	</tr>
 	
 	
 </table>
@@ -71,6 +95,15 @@
 		if(confirm("게시물을 수정하시겠습니까?")){
 			document.getElementById("updateForm").submit();
 		}
+	}
+	function registerComment(){
+		if(confirm("댓글을 작성하시겠습니까?")){
+			document.getElementById("registerCommentForm").submit();
+		}
+	}
+	
+	function updateComment(commentNo){
+		window.open("UpdateCommentFormController.do?commentNo="+commentNo, "join", "width=300, height=150, left=100, top=50");
 	}
 </script>
 	
