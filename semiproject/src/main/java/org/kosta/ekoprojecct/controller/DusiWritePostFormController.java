@@ -7,7 +7,7 @@ public class DusiWritePostFormController implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setAttribute("postCategory", request.getParameter("postCategory"));
+		request.setAttribute("postCategory", "두시");
 		request.setAttribute("url", "board/dusi-write.jsp");
 		return "layout.jsp";
 	}

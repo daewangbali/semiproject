@@ -24,6 +24,7 @@ public class CheckLoginInterceptor {
 		permitAllList.add("LoginController");
 		permitAllList.add("CheckKostaNoController");
 		permitAllList.add("RegisterMemberFormController");
+		permitAllList.add("DusiListController");
 	}
 	public static CheckLoginInterceptor getInstance() {
 		return instance;

@@ -1,40 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div align="center">
-<a class="navbar-brand font-face  " href="UpdateMemberFormController.do" style="padding-bottom: 2px;color: black;font-size: 1cm;margin: 0 50px 0 0 " >회원정보수정</a>
-<a class="navbar-brand font-face  " href="MyPageController.do" style="padding-bottom: 2px;color: black;font-size: 1cm;margin: 0 50px 0 0 " >내 게시물</a>
-<a class="navbar-brand font-face  " href="MyPageController.do" style="padding-bottom: 2px;color: black;font-size: 1cm;margin: 0 50px 0 0 " >좋아요 게시물</a>
-<a class="navbar-brand font-face  " href="MyPageController.do" style="padding-bottom: 2px;color: black;font-size: 1cm;margin: 0 50px 0 0 " >회원탈퇴</a>
-</div>
-<form action="DeleteMemberController.do" method="post" id="deleteForm">
-	<input type="password" id="password" name="password" placeholder="password" required="required" onkeyup="checkPasswordFunc()"><br>
-	<span id="id">${sessionScope.mvo.id }</span>
-	<span id="checkPassword"></span>
-	<input type="button" onclick="deleteForm">회원 탈퇴하기</button>
-</form>
-<div>
+<br><br>
+<span id="originalSentence">${sessionScope.mvo.name } 본인은 회원탈퇴를 진행하겠습니다.</span><br>
+<input type="text" id="deleteSentence" name="deleteSentence" placeholder="위 문구를 입력하세요" required="required" onkeyup="checkSentence()"  style="width:600px; font-size:30px; text-align: center;">
+<span id="checkSentence"></span>
+<br>
+<a href="#" id="deleteMemberButton" value="회원탈퇴" onclick="deleteMember()">회원탈퇴</a>
+<a href="MyPageController.do">뒤로가기</a>
+<form id="deleteMemberForm" method="post" action="DeleteMemberController.do"></form>
 <script type="text/javascript">
-	let checkPasswodFlag = false;
-	let checkPassword = document.getElementById("checkPassword");
+	let checkSentenceFlag = false;
+	let deleteMemberForm = document.getElementById("deleteMemberForm");
+	deleteMemberButton.disabled=true;
 	
-	function deleteForm(){
-		document.getElementById("deleteForm").submit();
+	function deleteMember() {
+		//document.getElementById("deleteForm").submit();
+		if(checkSentenceFlag==false){
+			alert("입력하신 문구를 다시 한번 확인하세요.");
+		}else{
+			if(confirm("회원탈퇴를 진행하시겠습니까?"))
+				document.getElementById("deleteMemberForm").submit();
+		}
 	}
 	
-	function checkPasswordFunc(){
-		let password = document.getElementById("password").value;
-		let xhr = new XMLHttpRequest();
-		xhr.onload = function(){
-			if(xhr.responseText=="ok"){ //비밀번호가 확인된 경우
-				checkPassword.innerHTML = "<font color=green>본인인증이 완료되었습니다.</font>";
-				checkPasswodFlag=true;
-			}else{ //비밀번호가 일치하지않는 경우
-				checkPassword.innerHTML = "<font color=red>비밀번호를 다시 입력바랍니다.</font>";
-				checkPasswodFlag=false;
-			}
-		}
-		xhr.open("GET", "CheckPasswordController.do");	
-		xhr.send();
+	function checkSentence(){
+		let deleteSentence = document.getElementById("deleteSentence").value;
+		let originalSentence = document.getElementById("originalSentence").innerHTML;
+		
+		if(deleteSentence == originalSentence){
+			checkSentenceFlag = true;
+			deleteMemberButton.disabled=false;
+		}else
+			deleteMemberButton.disabled=true;
 	}
 </script>
 </div>

@@ -175,19 +175,17 @@ public class MemberDAO {
 		}	
 	}
 
-	public void deleteMember(String id,String password) throws SQLException {
+	public void deleteMember(String id) throws SQLException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try {
 			con=dataSource.getConnection();
-			String sql="DELETE FROM SEMIMEMBER WHERE id=? AND password=?";
+			String sql="DELETE FROM SEMIMEMBER WHERE id=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
-			pstmt.setString(2, password);
 			pstmt.executeUpdate();
 		}finally {
 			closeAll(pstmt, con);		
 		}	
-	//	System.out.println("db에 "+vo+" 정보 삭제");
 	}
 }

@@ -44,8 +44,8 @@ public class BoardDAO {
 			sql.append("ORDER BY b.postNo desc ");
 			*/
 			//paging을 위해 rnum 생성
-			sql.append("SELECT rnum, postNo, postTitle,id, postDate, postCategory, hits ");
-			sql.append("FROM(SELECT ROW_NUMBER() OVER(ORDER BY postno DESC) as rnum, postno, posttitle, to_char(postdate,'yyyy.mm.dd') as postDate, hits, id, postCategory FROM semiboard WHERE postCategory=?) ");
+			sql.append("SELECT rnum, postNo, postTitle,id, postDate, postCategory, hits,youtubelink ");
+			sql.append("FROM(SELECT ROW_NUMBER() OVER(ORDER BY postno DESC) as rnum, postno, posttitle, to_char(postdate,'yyyy.mm.dd') as postDate, hits, id, postCategory, youtubelink FROM semiboard WHERE postCategory=?) ");
 			sql.append("WHERE rnum between ? and ?");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, postCategory);
@@ -61,6 +61,7 @@ public class BoardDAO {
 				boardVO.setHits(rs.getInt("hits"));
 				boardVO.setPostCategory(postCategory);
 				boardVO.setPostDate(rs.getString("postDate"));
+				boardVO.setYoutubeLink(rs.getString("youtubelink"));//추가
 				boardVO.setMemberVO(memberVO);
 				list.add(boardVO);
 			}
@@ -147,7 +148,7 @@ public class BoardDAO {
 		BoardVO bvo = null;
 		try {
 			con  = dataSource.getConnection();
-			StringBuilder sql = new StringBuilder("select b.postNo, b.postTitle, b.postContent, b.postDate, b.postCategory, b.hits, m.id, m.name ");
+			StringBuilder sql = new StringBuilder("select b.postNo, b.postTitle, b.postContent, b.postDate, b.postCategory, b.hits, m.id, m.name ,b.youtubeLink ");
 			sql.append("from SemiBoard b , semimember m ");
 			sql.append("where m.id = b.id and b.postNo = ?");
 			pstmt = con.prepareStatement(sql.toString());
@@ -157,8 +158,7 @@ public class BoardDAO {
 				MemberVO mvo = new MemberVO();
 				mvo.setId(rs.getString(7));
 				mvo.setName(rs.getString(8));
-				bvo = new BoardVO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6),mvo);
-				
+				bvo = new BoardVO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6),rs.getString(9),mvo);
 			}
 		}finally {
 			closeAll(rs, pstmt, con);

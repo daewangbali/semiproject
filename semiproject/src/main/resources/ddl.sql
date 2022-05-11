@@ -105,6 +105,7 @@ SELECT COUNT(*) FROM SEMIMEMBER WHERE ID='java'and password='b';
 
 --유튜브 링크
 ALTER TABLE SemiBoard ADD youtubelink VARCHAR2(100);
+ALTER TABLE SemiBoard drop column youtube;
 
 SELECT COUNT(*) FROM SemiBoard WHERE postcategory='소통'
 
@@ -115,3 +116,7 @@ select rnum, postNo, postTitle, postDate, postCategory, hits , name, id
 				where m.id = b.id 
 			and b.postTitle LIKE 'a%' || ? || '%a') 
 			WHERE rnum between 1 and 2
+			
+SELECT * FROM SemiBoard
+
+COMMIT
