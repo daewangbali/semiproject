@@ -148,7 +148,7 @@ public class BoardDAO {
 		BoardVO bvo = null;
 		try {
 			con  = dataSource.getConnection();
-			StringBuilder sql = new StringBuilder("select b.postNo, b.postTitle, b.postContent, b.postDate, b.postCategory, b.hits, m.id, m.name ,b.youtubeLink ");
+			StringBuilder sql = new StringBuilder("select b.postNo, b.postTitle, b.postContent, TO_CHAR(b.postDate, 'mm.dd') as postDate, b.postCategory, b.hits, m.id, m.name ,b.youtubeLink ");
 			sql.append("from SemiBoard b , semimember m ");
 			sql.append("where m.id = b.id and b.postNo = ?");
 			pstmt = con.prepareStatement(sql.toString());

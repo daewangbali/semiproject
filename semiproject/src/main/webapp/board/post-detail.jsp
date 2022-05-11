@@ -47,7 +47,7 @@
 		<td width="45%"><mark style="background-color: #fff099">${list.memberVO.id}님</mark> </td>
 		<td width="10%"><mark style="background-color: #fff099">${list.commentDate}</mark> </td>
 		<c:if test="${list.memberVO.id==sessionScope.mvo.id }">
-		<td><input type="button" onclick="updateComment(${list.commentNo})" value="수정"></td>
+		<td><input type="button" onclick="updateComment(${list.commentNo}, ${bvo.postNo })" value="수정"></td>
 		</c:if>
 	</tr>
 	</c:forEach>
@@ -102,8 +102,8 @@
 		}
 	}
 	
-	function updateComment(commentNo){
-		window.open("UpdateCommentFormController.do?commentNo="+commentNo, "join", "width=300, height=150, left=100, top=50");
+	function updateComment(commentNo, postNo){
+		window.open("UpdateCommentFormController.do?commentNo="+commentNo+"&postNo="+postNo, "join", "width=300, height=150, left=100, top=50");
 	}
 </script>
 	

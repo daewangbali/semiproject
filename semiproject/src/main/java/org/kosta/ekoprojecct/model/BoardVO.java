@@ -13,13 +13,13 @@ public class BoardVO {
 	public BoardVO() {
 		super();
 	}
+
 	public BoardVO(int postNo, String postTitle, String postContent) {
 		super();
 		this.postNo = postNo;
 		this.postTitle = postTitle;
 		this.postContent = postContent;
 	}
-
 
 	public BoardVO(String postTitle, String postContent, String postCategory, MemberVO memberVO) {
 		super();
@@ -28,7 +28,6 @@ public class BoardVO {
 		this.postCategory = postCategory;
 		this.memberVO = memberVO;
 	}
-	
 
 	public BoardVO(String postTitle, String postContent, String postCategory, MemberVO memberVO, String youtubeLink) {
 		super();
@@ -38,6 +37,7 @@ public class BoardVO {
 		this.memberVO = memberVO;
 		this.youtubeLink = youtubeLink;
 	}
+
 	public BoardVO(int postNo, String postTitle, String postContent, String postDate, String postCategory, int hits,
 			MemberVO memberVO) {
 		super();
@@ -59,6 +59,7 @@ public class BoardVO {
 		this.hits = hits;
 		this.memberVO = memberVO;
 	}
+
 	public BoardVO(int postNo, String postTitle, String postContent, String postDate, String postCategory, int hits,
 			String youtubeLink, MemberVO memberVO) {
 		super();
@@ -71,7 +72,13 @@ public class BoardVO {
 		this.youtubeLink = youtubeLink;
 		this.memberVO = memberVO;
 	}
-	
+
+	public BoardVO(int postNo, MemberVO memberVO) {
+		super();
+		this.postNo = postNo;
+		this.memberVO = memberVO;
+	}
+
 	public int getPostNo() {
 		return postNo;
 	}
@@ -127,20 +134,20 @@ public class BoardVO {
 	public void setMemberVO(MemberVO memberVO) {
 		this.memberVO = memberVO;
 	}
-	
-	
+
 	public String getYoutubeLink() {
 		return youtubeLink;
 	}
+
 	public void setYoutubeLink(String youtubeLink) {
 		this.youtubeLink = youtubeLink;
 	}
+
 	@Override
 	public String toString() {
 		return "BoardVO [postNo=" + postNo + ", postTitle=" + postTitle + ", postContent=" + postContent + ", postDate="
 				+ postDate + ", postCategory=" + postCategory + ", hits=" + hits + ", memberVO=" + memberVO
 				+ ", youtubeLink=" + youtubeLink + "]";
 	}
-	
 
 }

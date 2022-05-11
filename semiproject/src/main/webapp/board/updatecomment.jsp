@@ -37,8 +37,10 @@
                 <a class="navbar-brand font-face  " style="width:35px; padding-bottom: 2px; color:white; font-size: 20px" >EVERY KOSTIME</a>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
 <form action="UpdateCommentController.do" method="post" id="updateCommentForm">
-	<input type="text" name="id" id="memberId" value="${requestScope.cvo.commentContent }" placeholder="아이디" required="required" onkeyup="checkId()" style="width:250px"><br>
-	<input type="button" value="댓글수정" onclick="updateComment">
+	<input type="text" name="commentContent" value="${requestScope.cvo.commentContent }" placeholder="아이디" required="required" onkeyup="checkId()" style="width:250px"><br>
+	<input type="number" name="commentNo" value="${requestScope.cvo.commentNo }" hidden>
+	<input type="number" name="postNo" value="${requestScope.postNo }" hidden><br>
+	<input type="button" value="댓글수정" onclick="updateComment()">
 </form>
 <script type="text/javascript">
 	function updateComment(){

@@ -16,6 +16,13 @@ public class CommentVO {
 		this.commentContent = commentContent;
 	}
 
+	
+	public CommentVO(int commentNo, String commentContent) {
+		super();
+		this.commentNo = commentNo;
+		this.commentContent = commentContent;
+	}
+
 	public int getCommentNo() {
 		return commentNo;
 	}

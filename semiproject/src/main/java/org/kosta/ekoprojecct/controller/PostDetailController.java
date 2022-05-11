@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.kosta.ekoprojecct.model.BoardDAO;
 import org.kosta.ekoprojecct.model.BoardVO;
+import org.kosta.ekoprojecct.model.CommentDAO;
+import org.kosta.ekoprojecct.model.CommentVO;
 
 public class PostDetailController implements Controller {
 
@@ -28,6 +30,10 @@ public class PostDetailController implements Controller {
 		//조회수 증가
 		//BoardDAO.getInstance().updateHits(no);
 		BoardVO bvo=  BoardDAO.getInstance().postDetail(no);
+		
+		//댓글데이터 불러오기
+		ArrayList<CommentVO> list=CommentDAO.getInstance().ListCommentByPostNo(no);
+		request.setAttribute("commentList", list);
 		request.setAttribute("bvo", bvo);
 		request.setAttribute("url", "board/post-detail.jsp");
 		return "layout.jsp";
