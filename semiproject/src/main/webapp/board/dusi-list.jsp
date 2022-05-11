@@ -2,8 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../includes/board-list.jsp"%>
-
-<button onclick="location.href ='DusiWritePostFormController.do?postCategory=${postCategory}'" type="button" class="btn btn-warning" style="float: right;color: white;">글쓰기</button>
+<c:if test="${sessionScope.mvo!=null}">
+	<button onclick="location.href ='DusiWritePostFormController.do?postCategory=${postCategory}'" type="button" class="btn btn-warning" style="float: right;color: white;">글쓰기</button>
+</c:if>
 <ul class=""> 
 <c:forEach items="${list}" var="list">
 <li>
