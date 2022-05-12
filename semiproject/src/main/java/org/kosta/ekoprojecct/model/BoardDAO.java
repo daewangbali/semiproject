@@ -36,16 +36,11 @@ public class BoardDAO {
 		try {
 			con=dataSource.getConnection();
 			StringBuilder sql=new StringBuilder();
-			/*
-			sql.append("SELECT b.postNo, b.postTitle, m.id, TO_CHAR(b.postDate,'yyyy.mm.dd') as postDate, b.hits ");
-			sql.append("FROM SemiMember m, SemiBoard b ");
-			sql.append("WHERE m.id=b.id ");
-			sql.append("AND b.postCategory=? ");
-			sql.append("ORDER BY b.postNo desc ");
-			*/
-			//paging을 위해 rnum 생성
+			//1차 SQL 작성후 paging을 위해 rnum 추가한 서브쿼리문 작성
 			sql.append("SELECT rnum, postNo, postTitle,id, postDate, postCategory, hits,youtubelink ");
-			sql.append("FROM(SELECT ROW_NUMBER() OVER(ORDER BY postno DESC) as rnum, postno, posttitle, to_char(postdate,'yyyy.mm.dd') as postDate, hits, id, postCategory, youtubelink FROM semiboard WHERE postCategory=?) ");
+			sql.append("FROM(SELECT ROW_NUMBER() OVER(ORDER BY postno DESC) as rnum, postno, posttitle, ");
+			sql.append("to_char(postdate,'yyyy.mm.dd') as postDate, hits, id, postCategory, youtubelink ");
+			sql.append("FROM semiboard WHERE postCategory=?) ");
 			sql.append("WHERE rnum between ? and ?");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, postCategory);
@@ -148,7 +143,8 @@ public class BoardDAO {
 		BoardVO bvo = null;
 		try {
 			con  = dataSource.getConnection();
-			StringBuilder sql = new StringBuilder("select b.postNo, b.postTitle, b.postContent, TO_CHAR(b.postDate, 'mm.dd') as postDate, b.postCategory, b.hits, m.id, m.name ,b.youtubeLink ");
+			StringBuilder sql = new StringBuilder("select b.postNo, b.postTitle, b.postContent, ");
+			sql.append("TO_CHAR(b.postDate, 'mm.dd') as postDate, b.postCategory, b.hits, m.id, m.name,b.youtubeLink ");
 			sql.append("from SemiBoard b , semimember m ");
 			sql.append("where m.id = b.id and b.postNo = ?");
 			pstmt = con.prepareStatement(sql.toString());
@@ -158,13 +154,15 @@ public class BoardDAO {
 				MemberVO mvo = new MemberVO();
 				mvo.setId(rs.getString(7));
 				mvo.setName(rs.getString(8));
-				bvo = new BoardVO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6),rs.getString(9),mvo);
+				bvo = new BoardVO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),
+						rs.getInt(6),rs.getString(9),mvo);
 			}
 		}finally {
 			closeAll(rs, pstmt, con);
 		}
 		return bvo;
 	}
+	
 	//게시물 삭제
 	public void deletePost(int no) throws SQLException {
 		Connection con = null;
@@ -179,14 +177,17 @@ public class BoardDAO {
 			closeAll(pstmt, con);
 		}
 	}
+	
 	//게시물 작성
 	public void posting(BoardVO bvo) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = dataSource.getConnection();
-			String sql = "insert into semiboard(postNo,postTitle,postContent,postDate,postCategory,id,youtubelink) values(SemiBoard_seq.nextval,?,?,sysdate,?,?,?)";
-			pstmt = con.prepareStatement(sql);
+			StringBuilder sql = new StringBuilder("insert into semiboard(postNo,postTitle, ");
+			sql.append("postContent,postDate,postCategory,id,youtubelink) ");
+			sql.append("values(SemiBoard_seq.nextval,?,?,sysdate,?,?,?)");
+			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(1, bvo.getPostTitle());
 			pstmt.setString(2, bvo.getPostContent());
 			pstmt.setString(3, bvo.getPostCategory());
@@ -199,6 +200,7 @@ public class BoardDAO {
 		}
 		
 	}
+	
 	//게시물 수정
 	public void updatePost(BoardVO bvo) throws SQLException {
 		Connection con = null;
@@ -216,7 +218,7 @@ public class BoardDAO {
 		}
 	}
 	
-	
+	//조회수
 	public void updateHits(int postNo) throws SQLException{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -230,44 +232,7 @@ public class BoardDAO {
 			closeAll(pstmt, con);
 		}
 	}
-	/*
-	public ArrayList<BoardVO> findPostByFilterAndWord(String filter, String word) throws SQLException {
-		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
-		Connection con = dataSource.getConnection();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			System.out.println(filter);
-			System.out.println(word);
-			StringBuilder sql = new StringBuilder();
-			
-			sql.append("select b.postNo, b.postTitle, b.postDate, b.postCategory, b.hits , m.name, m.id ");
-			sql.append("from SemiBoard b , semimember m ");
-			sql.append("where m.id = b.id ");
-			if (filter.equals("name")) {
-				sql.append("and b.postTitle LIKE '%' || ? || '%'");
-			} else if (filter.equals("content")) {
-				sql.append("and b.postContent LIKE '%' || ? || '%'");
-			}
-			pstmt = con.prepareStatement(sql.toString());
-			pstmt.setString(1, word);
-			rs = pstmt.executeQuery();
-			
-			while (rs.next()) {
-				MemberVO mvo = new MemberVO(rs.getString("id"));
-				list.add(new BoardVO(rs.getInt("postNo"), rs.getString("postTitle"), rs.getString("postDate"),
-						rs.getString("postCategory"), rs.getInt("hits"), mvo));
-			}
-
-		} finally {
-			closeAll(rs, pstmt, con);
-		}
-
-		return list;
-	}
-	*/
-	 //pagination 추가
+	
 	 public ArrayList<BoardVO> findPostByFilterAndWord(String filter, String word, Pagination pagination) throws SQLException {
 		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
 		Connection con = dataSource.getConnection();
@@ -281,8 +246,8 @@ public class BoardDAO {
 			
 			//paging 하기 위해서 sql문 수정 -> if문 구조 변경, rnum 생성
 			sql.append("SELECT rnum, postNo, postTitle,id, postDate, postCategory, hits ");
-			
-			sql.append("FROM(SELECT ROW_NUMBER() OVER(ORDER BY postno DESC) as rnum, b.postNo, b.postTitle, b.postDate, b.postCategory, b.hits , m.name, m.id ");
+			sql.append("FROM(SELECT ROW_NUMBER() OVER(ORDER BY postno DESC) as rnum, b.postNo, b.postTitle, b.postDate, ");
+			sql.append("b.postCategory, b.hits , m.name, m.id ");
 			sql.append("from SemiBoard b , semimember m ");
 			sql.append("where m.id = b.id ");
 			if (filter.equals("name")) {
@@ -320,7 +285,9 @@ public class BoardDAO {
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT rnum, postNo, postTitle,id, postDate, postCategory, hits ");
-			sql.append("FROM(SELECT ROW_NUMBER() OVER(ORDER BY postno DESC) as rnum, postno, posttitle, to_char(postdate,'yyyy.mm.dd') as postDate, hits, id, postCategory FROM semiboard WHERE id=?) ");
+			sql.append("FROM(SELECT ROW_NUMBER() OVER(ORDER BY postno DESC) as rnum, postno, posttitle, ");
+			sql.append("to_char(postdate,'yyyy.mm.dd') as postDate, hits, id, ");
+			sql.append("postCategory FROM semiboard WHERE id=?) ");
 			sql.append("WHERE rnum between ? and ? ");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, id);
