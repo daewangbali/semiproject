@@ -14,10 +14,12 @@ public class UpdatePostFormController implements Controller {
 		BoardVO bvo =  BoardDAO.getInstance().postDetail(no);
 		String postCategory = request.getParameter("postCategory");
 		
-		if(postCategory.equals("소통") || postCategory.equals("자유")) {
-			request.setAttribute("url", "board/update.jsp");
-		}else {
+		if(postCategory.equals("두시")) {
 			request.setAttribute("url", "board/dusi-update.jsp");
+		
+		}else {
+			request.setAttribute("url", "board/update.jsp");
+			
 		}
 		request.setAttribute("bvo", bvo);
 		

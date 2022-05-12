@@ -84,6 +84,7 @@
 			</form> 
 			 <form id="updateForm" action="UpdatePostFormController.do" method="post">
 				<input type="hidden" name="no" value="${bvo.postNo}">
+				<input type="hidden" name="postCategory" value="${bvo.postCategory}">
 			</form>
 				<c:if test="${sessionScope.mvo.id == bvo.memberVO.id}">
 			 	<button onclick="deletePost()" type="button" class="btn btn-outline-danger">삭제</button>
