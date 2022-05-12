@@ -24,6 +24,7 @@ public class CheckLoginInterceptor {
 		permitAllList.add("LoginController");
 		permitAllList.add("CheckKostaNoController");
 		permitAllList.add("RegisterMemberFormController");
+		permitAllList.add("RegisterMemberController");
 		permitAllList.add("DusiListController");
 		permitAllList.add("FindIdByNameAndTelFormController");
 		permitAllList.add("FindIdByNameAndTelController");
