@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.kosta.ekoprojecct.model.BoardDAO;
 import org.kosta.ekoprojecct.model.BoardVO;
-import org.kosta.ekoprojecct.model.Pagination;
 
 public class DusiListController implements Controller {
 

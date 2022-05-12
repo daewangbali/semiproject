@@ -419,8 +419,9 @@ public class BoardDAO {
 		ResultSet rs=null;
 		try {
 			con=dataSource.getConnection();
-			String sql = "select postNo, postTitle, id, postDate, postCategory, hits, youtubelink from SEMIBOARD where postCategory = ?";
-			pstmt=con.prepareStatement(sql);
+			StringBuilder sql = new StringBuilder("select postNo, postTitle, id, postDate, postCategory, hits, youtubelink ");
+			sql.append("from SEMIBOARD where postCategory = ? ORDER BY postNo desc");
+			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, "두시");
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
